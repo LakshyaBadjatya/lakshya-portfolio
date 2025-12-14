@@ -1,15 +1,15 @@
 {
-	"name": "Andrew Nelson",
+	"name": "Lakshya Badjatya",
 	"logo": "",
 	
 	"username": {
-		"github": "atlamors",
-		"medium": "@--andrewnelson"
+		"github": "LakshyaBadjatya",
+		"medium": "@lakshyabadjatya"
 	},
 
 	"portfolio": { 
 		"forkthis": "Steal this theme! Its open-source 🥰",
-		"repo_html": "https://www.github.com/atlamors/portfolio",
-		"repo_api": "https://api.github.com/repos/atlamors/portfolio"
+		"repo_html": "https://github.com/LakshyaBadjatya/Portfolio-Website",
+		"repo_api": "https://github.com/LakshyaBadjatya/Portfolio-Website"
 	}
 }

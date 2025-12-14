@@ -1,6 +1,6 @@
 {
 	"intro": {
-		"start": "const Andrew = ( name, passion ) =>",
+		"start": "const Lakshya = ( name, passion ) =>",
 		"end": "Hello, my name is",
 		"speed": 60,
 		"deletionSpeed": 80,
@@ -11,21 +11,21 @@
 	},
 
 	"header": {
-		"name": "Andrew Nelson.",
-		"usp": "I design and build meaningful experiences."
+		"name": "Lakshya Badjatya.",
+		"usp": "Student | Aspiring Computer Scientist | Developer"
 	},
 
-	"paragraph": "I am a digital polymath — a constantly evolving digital creator driven by a passion for lifelong learning and the desire to leave a lasting impact.",
+	"paragraph": "I am a Class 11 PCM student passionate about computer science, software development, and problem-solving. I enjoy building projects, learning new technologies, and continuously improving my skills while preparing for competitive exams and global opportunities.",
 
 	"buttons": {
 		"primary": {
 			"title": "Contact Me",
-			"url": "",
+			"url": "mailto:lakshyabadjatya@gmail.com?subject=Portfolio%20Contact",
 			"leaveSite": false
 		},
 		"secondary": {
 			"title": "LinkedIn",
-			"url": "",
+			"url": "https://www.linkedin.com/in/lakshya-badjatya-a12a77399/",
 			"leaveSite": "true"
 		}
 	}
