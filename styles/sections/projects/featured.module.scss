@@ -9,10 +9,11 @@
 	flex-direction: row;
 	flex-wrap: nowrap;
 	user-select: none;
+	overflow: hidden;
 
 	border-radius: 2rem;
 	background-color: var(--background-dim2);
-    border: 1px solid var(--primary-dark);
+	border: 1px solid var(--primary-dark);
 
 	.viewProject svg {
 		@include transition;
@@ -32,8 +33,7 @@
 	}
 }
 
-
-.projectHeader  {
+.projectHeader {
 	display: flex;
 	flex-direction: column;
 	gap: var(--size-3x);
@@ -50,7 +50,7 @@
 	.viewProject {
 		svg {
 			height: 1.5rem;
-			color: var(--primary);	
+			color: var(--primary);
 		}
 	}
 
@@ -71,7 +71,6 @@
 			height: fit-content;
 		}
 	}
-
 }
 
 .details {
@@ -112,21 +111,21 @@
 
 	.imageAnimationContainer {
 		position: absolute;
-		overflow: hidden;
+		overflow: visible;
 		border-radius: 2rem;
 		height: calc(100% - 6rem);
-		width: calc(100% + 9rem);
+		width: 100%; /* FIXED */
 		right: 0;
-		bottom: 0;
+		bottom: 11rem;
 
 		> div > div {
-
 			> span {
 				position: absolute !important;
-				right: 4rem;
-	
+				right: 2rem; /* FIXED */
+				bottom: 0;
+
 				img {
-					width: calc(556px / 1.25) !important;
+					width: 500px !important; /* FIXED */
 				}
 			}
 		}
@@ -169,43 +168,41 @@
 		transform: translateX(50%);
 		filter: blur(200px);
 		opacity: var(--opacity);
-		// background: linear-gradient(180deg, rgb(41, 212, 112) 0%,  rgb(242, 240, 79) 100% );	
-		background: linear-gradient(180deg, var(--neon-1-1) 0%,  var(--neon-1-2) 100% );	
+		background: linear-gradient(
+			180deg,
+			var(--neon-1-1) 0%,
+			var(--neon-1-2) 100%
+		);
 	}
 
 	.orbitalBg {
-		// --left: linear-gradient(180deg, rgb(51, 205, 229) 0%,  rgb(229, 51, 140) 100% );
-		// --center: linear-gradient(180deg, rgb(41, 212, 112) 0%,  rgb(242, 240, 79) 100% );
-		// --right: linear-gradient(180deg, rgb(78, 21, 115) 0%,  rgb(103, 242, 79) 100% );
-		--left: linear-gradient(180deg, var(--neon-2-1) 0%,  var(--neon-2-2) 100% );
-		--center: linear-gradient(180deg, var(--neon-1-1) 0%,  var(--neon-1-2) 100% );
-		--right: linear-gradient(180deg, var(--neon-2-2) 0%,  var(--neon-1-1) 100% );
-		
+		--left: linear-gradient(180deg, var(--neon-2-1) 0%, var(--neon-2-2) 100%);
+		--center: linear-gradient(180deg, var(--neon-1-1) 0%, var(--neon-1-2) 100%);
+		--right: linear-gradient(180deg, var(--neon-2-2) 0%, var(--neon-1-1) 100%);
+
 		position: absolute;
 		z-index: -1;
 		width: 100%;
 		left: -50%;
-	
+
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		gap: 2rem;
-		
+
 		height: 500px;
-	
 		filter: blur(200px);
-	
+
 		animation: rotationFore 240s linear infinite;
 		transform-origin: center center;
-		
-	
+
 		.bgSection {
 			position: relative;
 			width: calc(100% / 3 - 2rem);
 			aspect-ratio: 1;
 			height: 100%;
 		}
-	
+
 		.bgInner {
 			height: 100%;
 			width: 100%;
@@ -218,25 +215,26 @@
 			top: 50%;
 			transform: translateY(-50%);
 		}
-	
+
 		.heroLeft {
 			position: absolute;
 			left: -50%;
 			background: var(--left);
 			opacity: calc(var(--opacity) + 15%);
 		}
+
 		.heroCenter {
 			background: var(--center);
 			opacity: var(--opacity);
 		}
+
 		.heroRight {
 			position: absolute;
 			right: -50%;
 			background: var(--right);
 			opacity: calc(var(--opacity) + 15%);
 		}
-	
-	
+
 		@keyframes rotationFore {
 			0% {
 				transform: rotate(0deg);
@@ -244,7 +242,7 @@
 			100% {
 				transform: rotate(360deg);
 			}
-		} 
+		}
 	}
 }
 
@@ -253,69 +251,33 @@
 		&:nth-of-type(n) {
 			flex-direction: column;
 
-			&:hover {
-				.details {
-					border-color: var(--primary-dim2);
-				}
-			}
-
 			.details {
 				border-radius: 1rem;
 				padding: var(--size-2x);
 			}
 
-			.stackContainer {
-				--padding-top: 1.5rem;
-
-				h4 { 
-					text-align: center;
-					display: none;
-				}
-				ul {
-					font-size: .6rem;
-				}
-			}
-
 			.imageContainer {
-				height: 100px;
+				height: 140px;
 				width: 100%;
 			}
 
 			.imageAnimationContainer {
 				height: calc(100% + 6rem);
 				width: 100%;
-		
+
 				> div > div {
 					> span {
+						right: 1rem;
+
 						img {
-							width: calc(556px / 2) !important;
+							width: 280px !important;
 						}
 					}
 				}
 			}
 		}
-
-		&:nth-of-type(2n+1) {
-			.imageAnimationContainer {
-				> div > div {
-					> span {
-						right: 2rem;
-					}
-				}
-			}
-		}
-
-		&:nth-of-type(2n) {
-			.imageAnimationContainer {
-				> div > div {
-					> span {
-						right: 0rem;
-					}
-				}
-			}
-		}
 	}
-	
+
 	.bgContainer {
 		.orbitalBg {
 			width: unset;
@@ -323,4 +285,3 @@
 		}
 	}
 }
-

@@ -15,13 +15,13 @@
 		"usp": "Student | Aspiring Computer Scientist | Developer"
 	},
 
-	"paragraph": "I am a Class 11 PCM student passionate about computer science, software development, and problem-solving. I enjoy building projects, learning new technologies, and continuously improving my skills while preparing for competitive exams and global opportunities.",
+	"paragraph": "I am a Class 11 student passionate about computer science, software development, and problem-solving. I enjoy building projects, learning new technologies, and continuously improving my skills",
 
 	"buttons": {
 		"primary": {
 			"title": "Contact Me",
 			"url": "mailto:lakshyabadjatya@gmail.com?subject=Portfolio%20Contact",
-			"leaveSite": false
+			"leaveSite": "true"
 		},
 		"secondary": {
 			"title": "LinkedIn",
