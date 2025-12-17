@@ -1,10 +1,8 @@
 import Head from "next/head"
 
 import Hero from '../components/sections/index/hero'
-import Looking from '../components/sections/index/looking'
 import About from '../components/sections/index/about'
 import Technical from '../components/sections/index/technical'
-import Career from '../components/sections/index/career'
 import FeaturedProjects from '../components/sections/projects/featured'
 
 import Color from '../components/utils/page.colors.util'
@@ -13,16 +11,12 @@ import colors from '../content/index/_colors.json'
 export default function HomePage() {
   return (
     <>
-      {/* 🔍 SEO */}
       <Head>
-        <title>Lakshya Badjatya | Student Portfolio</title>
+        {/* Primary SEO */}
+        <title>Lakshya Badjatya | Student Portfolio & Developer</title>
         <meta
           name="description"
-          content="Lakshya Badjatya is a Class 11 PCM student interested in computer science, web development, and building real projects."
-        />
-        <meta
-          name="keywords"
-          content="Lakshya Badjatya, student portfolio, computer science student, web developer"
+          content="Lakshya Badjatya is a Class 11 PCM student showcasing projects, skills, and learning in computer science, web development, and game development."
         />
         <meta name="author" content="Lakshya Badjatya" />
         <meta name="robots" content="index, follow" />
@@ -34,21 +28,35 @@ export default function HomePage() {
           content="Student portfolio showcasing projects, skills, and learning journey in computer science."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourdomain.com" />
-        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:url" content="https://sukhma.in" />
+        <meta property="og:image" content="https://sukhma.in/og-image.png" />
 
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" />
+        {/* Social Profile Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Lakshya Badjatya",
+              "url": "https://sukhma.in",
+              "sameAs": [
+                "https://github.com/LakshyaBadjatya",
+                "https://www.linkedin.com/in/lakshya-badjatya-a12a77399/",
+                "https://dev.to/lakshyabadjatya",
+                "https://medium.com/@lakshyabadjatya"
+              ]
+            })
+          }}
+        />
       </Head>
 
       {/* Page Content */}
       <Color colors={colors} />
       <Hero />
-      {/* <Looking /> */}
       <FeaturedProjects />
       <About />
       <Technical />
-      {/* <Career /> */}
     </>
   )
 }
