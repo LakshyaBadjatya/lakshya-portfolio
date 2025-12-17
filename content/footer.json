@@ -1,29 +1,7 @@
 {
-	"acknowledgments": [
-		{ 
-			"person": "Colorpong - Artist",
-			"link": "ttps://www.youworkforthem.com/designer/536/colorpong?aff=1115",
-			"note": "Checkout their amazing vector illustrations."
-		},
-		{ 
-			"person": "Lakshya Badjatya",
-			"link": "https://github.com/LakshyaBadjatya",
-			"note": "A major inspiration to create an open source theme."
-		},
-		{ 
-			"person": "Vercel - Platform",
-			"link": "https://vercel.com/docs",
-			"note": "Host your own Next.js project for free!"
-		}
-	],
+	"acknowledgments": [],
 
-	"links": [
-		{ 
-			"person": "YWFT Creative Marketplace",
-			"link": "https://www.youworkforthem.com/",
-			"note": "Best in class creative assets."
-		}
-	],
+	"links": [],
 
 	"social": [
 		{
