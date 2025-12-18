@@ -1,4 +1,6 @@
 // Core packages
+import Watermark from '../components/utils/Watermark'
+import { useEffect } from 'react'
 import Preloader from '../components/layout/Preloader'
 import { Analytics } from '@vercel/analytics/react'
 import { LazyMotion, domAnimation } from 'framer-motion'
@@ -30,6 +32,33 @@ import '../styles/css/global.css'
  * _app.jsx
  */
 export default function MyApp({ Component, pageProps }) {
+
+  /* ===============================
+     BASIC CONTENT PROTECTION
+     =============================== */
+  useEffect(() => {
+    // Disable right-click
+    const disableRightClick = (e) => e.preventDefault()
+
+    // Disable common dev / copy shortcuts
+    const disableKeys = (e) => {
+      if (
+        (e.ctrlKey && ['c', 'u', 's', 'p'].includes(e.key.toLowerCase())) ||
+        e.key === 'F12'
+      ) {
+        e.preventDefault()
+      }
+    }
+
+    document.addEventListener('contextmenu', disableRightClick)
+    document.addEventListener('keydown', disableKeys)
+
+    return () => {
+      document.removeEventListener('contextmenu', disableRightClick)
+      document.removeEventListener('keydown', disableKeys)
+    }
+  }, [])
+
   return (
     <LazyMotion features={domAnimation}>
       {/* 🔥 PRELOADER MUST BE ABOVE LAYOUT */}

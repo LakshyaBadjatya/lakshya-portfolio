@@ -1,6 +1,12 @@
 @import '../scss/_mixins';
 
 .container {
+	.copyrightSymbol {
+	font-size: 1.4em;   // makes © bigger
+	font-weight: 700;
+	margin-right: 0.2rem;
+	vertical-align: middle;
+}
 	display: flex;
 	flex-direction: column;
 	position: relative;
