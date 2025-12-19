@@ -7,9 +7,9 @@
     "description": "A simple Flappy Bird–style game built using Unity and C# as a learning project.",
     "imageOptions": [],
     "images": [
-      { "key": "mock-stack", "hover": "right", "h": "900", "w": "500", "url": "/img/msc-mock_stack/03.png" },
-      { "key": "mock-stack", "hover": "right", "h": "900", "w": "500", "url": "/img/msc-mock_stack/02.png" },
-      { "key": "mock-stack", "hover": "left",  "h": "900", "w": "500", "url": "/img/msc-mock_stack/01.png" }
+      { "key": "mock-stack", "hover": "right", "h": "900", "w": "500", "url": "/img/msc-mock_stack/03.webp" },
+      { "key": "mock-stack", "hover": "right", "h": "900", "w": "500", "url": "/img/msc-mock_stack/02.webp" },
+      { "key": "mock-stack", "hover": "left",  "h": "900", "w": "500", "url": "/img/msc-mock_stack/01.webp" }
     ],
     "stack": [
       { "key": "unity", "name": "Unity", "type": "devicon-unity-plain" },
@@ -27,7 +27,7 @@
       { "key": "size", "value": "large" }
     ],
     "images": [
-      { "key": "portfolio", "hover": "left", "h": "900", "w": "500", "url": "/img/portfolio-mock_single.png" }
+      { "key": "portfolio", "hover": "left", "h": "900", "w": "500", "url": "/img/01.webp" }
     ],
     "stack": [
       { "key": "nextjs", "name": "Next.js", "type": "devicon" },

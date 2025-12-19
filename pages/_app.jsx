@@ -1,6 +1,6 @@
 // Core packages
-import Watermark from '../components/utils/Watermark'
 import { useEffect } from 'react'
+import DynamicWatermark from '../components/utils/DynamicWatermark'
 import Preloader from '../components/layout/Preloader'
 import { Analytics } from '@vercel/analytics/react'
 import { LazyMotion, domAnimation } from 'framer-motion'
@@ -37,10 +37,8 @@ export default function MyApp({ Component, pageProps }) {
      BASIC CONTENT PROTECTION
      =============================== */
   useEffect(() => {
-    // Disable right-click
     const disableRightClick = (e) => e.preventDefault()
 
-    // Disable common dev / copy shortcuts
     const disableKeys = (e) => {
       if (
         (e.ctrlKey && ['c', 'u', 's', 'p'].includes(e.key.toLowerCase())) ||
@@ -59,33 +57,36 @@ export default function MyApp({ Component, pageProps }) {
     }
   }, [])
 
+  /* ===============================
+     BLUR ON TAB / APP SWITCH
+     =============================== */
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        document.body.classList.add('blurred')
+      } else {
+        document.body.classList.remove('blurred')
+      }
+    }
+
+    document.addEventListener('visibilitychange', onVisibilityChange)
+    return () =>
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+  }, [])
+
   return (
     <LazyMotion features={domAnimation}>
-      {/* 🔥 PRELOADER MUST BE ABOVE LAYOUT */}
       <Preloader />
 
       <Layout>
+        {/* 🔒 Watermark always on top */}
+        <DynamicWatermark />
+
         <Component {...pageProps} />
+
         <SetGridGap />
         <Analytics />
       </Layout>
     </LazyMotion>
   )
-
-  useEffect(() => {
-  const blockTouch = (e) => {
-    if (e.touches && e.touches.length > 1) {
-      e.preventDefault()
-    }
-  }
-
-  document.addEventListener('touchstart', blockTouch, { passive: false })
-  document.addEventListener('touchend', blockTouch, { passive: false })
-
-  return () => {
-    document.removeEventListener('touchstart', blockTouch)
-    document.removeEventListener('touchend', blockTouch)
-  }
-}, [])
-
 }
