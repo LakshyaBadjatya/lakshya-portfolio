@@ -240,3 +240,12 @@ body{
 .watermark span {
   white-space: nowrap;
 }
+
+/* MOBILE COPY BLOCK */
+* {
+  -webkit-touch-callout: none;   /* iOS copy menu */
+  -webkit-user-select: none;     /* iOS/Android */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

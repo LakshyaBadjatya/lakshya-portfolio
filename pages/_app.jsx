@@ -71,4 +71,21 @@ export default function MyApp({ Component, pageProps }) {
       </Layout>
     </LazyMotion>
   )
+
+  useEffect(() => {
+  const blockTouch = (e) => {
+    if (e.touches && e.touches.length > 1) {
+      e.preventDefault()
+    }
+  }
+
+  document.addEventListener('touchstart', blockTouch, { passive: false })
+  document.addEventListener('touchend', blockTouch, { passive: false })
+
+  return () => {
+    document.removeEventListener('touchstart', blockTouch)
+    document.removeEventListener('touchend', blockTouch)
+  }
+}, [])
+
 }
