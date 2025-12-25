@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
 export default function Preloader() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(true)
 
   useEffect(() => {
-
     const timer = setTimeout(() => {
-      setShow(false);
-    }, 3500); // duration of animation
+      setShow(false)
+    }, 3500) // duration of animation
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer)
+  }, [])
 
-  if (!show) return null;
+  if (!show) return null
 
   return (
     <div style={styles.wrapper}>
@@ -24,7 +23,7 @@ export default function Preloader() {
         style={styles.video}
       />
     </div>
-  );
+  )
 }
 
 const styles = {
@@ -32,13 +31,21 @@ const styles = {
     position: "fixed",
     inset: 0,
     background: "#000",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: "grid",
+    placeItems: "center",
     zIndex: 9999,
   },
+
   video: {
-    width: "auto",
+    /* 🔑 RESPONSIVE SCALING */
+    width: "clamp(220px, 50vw, 520px)",
     height: "auto",
+
+    /* Maintain proportions */
+    maxWidth: "90vw",
+    maxHeight: "90vh",
+
+    /* Prevent pixel stretching */
+    objectFit: "contain",
   },
-};
+}

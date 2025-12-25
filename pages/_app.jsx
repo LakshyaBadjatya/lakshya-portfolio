@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import DynamicWatermark from '../components/utils/DynamicWatermark'
 import Preloader from '../components/layout/Preloader'
 import { Analytics } from '@vercel/analytics/react'
-import { Analytics } from "@vercel/analytics/next"
 import { LazyMotion, domAnimation } from 'framer-motion'
 
 // Utils
