@@ -283,5 +283,15 @@
 			width: unset;
 			height: 100%;
 		}
+
+.cardLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card {
+  cursor: pointer;
+}
 	}
 }
