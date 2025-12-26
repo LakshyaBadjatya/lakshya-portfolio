@@ -37,6 +37,15 @@ problem-solving skills through hands-on development.
 
 ---
 
+## 📬 Contact
+
+If you’d like to get in touch, feel free to reach out:
+
+- **Email:** lakshyabadjatya@gmail.com  
+- **Phone:** +91 8619690342  
+
+---
+
 ## 🛠️ Running Locally
 
 ```bash
