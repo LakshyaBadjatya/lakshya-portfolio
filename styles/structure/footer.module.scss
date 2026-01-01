@@ -134,7 +134,7 @@
 	}
 }
 .rateMe {
-  margin-top: 2rem;
+  margin-top: 0.001rem;
   display: flex;
   justify-content: center;
 }
@@ -152,3 +152,21 @@
 	background-color: var(--primary-bright);
   }
 }
+
+.copyright {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.1rem;
+
+  h5 {
+    font-size: 0.9rem;        // smaller, professional
+    font-weight: 500;
+    opacity: 0.7;             // subtle, not dominant
+    letter-spacing: 0.04em;
+    text-align: center;
+    margin: 0;
+  }
+}
+
