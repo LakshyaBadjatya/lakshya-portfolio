@@ -1,64 +1,129 @@
-// Sections
-import GitRecentProjects from '../../components/sections/projects/recent'
-import FeaturedProjects from '../../components/sections/projects/featured'
+import Head from "next/head"
+import Link from "next/link"
+import Image from "next/image"
 
-import Color  from '../../components/utils/page.colors.util'
+export default function ProjectsPage() {
+  return (
+    <>
+      <Head>
+        <title>Projects | Lakshya Badjatya</title>
+        <meta
+          name="description"
+          content="Projects built by Lakshya Badjatya including games and web applications."
+        />
+      </Head>
 
-import settings from '../../content/_settings.json'
-import colors from '../../content/projects/_colors.json'
+      <main style={styles.page}>
+        <h1 style={styles.title}>My Projects</h1>
+        <p style={styles.subtitle}>
+          A collection of projects I’ve built while learning computer science
+          and software development.
+        </p>
 
-//
-export default function Projects({ user, repos }) {
-	return (
-		<>
-		<Color colors={colors} />
-		<FeaturedProjects />
-		<GitRecentProjects user={user} repos={repos} />
-		</>
-	)
+        {/* PROJECT CARD */}
+        <section style={styles.card}>
+          <div style={styles.imageWrapper}>
+            <Image
+              src="/img/flappy-bird-preview.webp"   // 👈 put image in /public/img/
+              alt="Flappy Bird Game"
+              width={300}
+              height={300}
+              style={styles.image}
+            />
+          </div>
+
+          <div style={styles.content}>
+            <h2>Flappy Bird</h2>
+            <p style={styles.description}>
+              A simple 2D Flappy Bird–style game built using Unity and C# as a
+              learning project. This project helped me understand game physics,
+              collision handling, and basic game loops.
+            </p>
+
+            <div style={styles.tags}>
+              <span>Unity</span>
+              <span>C#</span>
+              <span>Game Dev</span>
+            </div>
+
+            <div style={styles.actions}>
+              <Link href="/projects/flappy-bird">
+                <button style={styles.primaryBtn}>View Details</button>
+              </Link>
+
+              <a href="/downloads/Flappy.apk" download>
+                <button style={styles.secondaryBtn}>Download Game</button>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  )
 }
 
-// This gets called on every request
-export async function getServerSideProps({ res }) {
-
-	res.setHeader(
-		'Cache-Control',
-		'public, s-maxage=600, stale-while-revalidate=59'
-	)
-
-	const [ gitUserRes, gitReposRes] = await Promise.all( [
-		fetch(`https://api.github.com/users/${settings.username.github}`),
-		fetch(`https://api.github.com/users/${settings.username.github}/repos`),
-	] )
-	
-	let [ user, repos] = await Promise.all( [
-		gitUserRes.json(),
-		gitReposRes.json(), 
-	] )
-
-	if (user.login) {
-		user = [user].map( 
-			({ login, name, avatar_url, html_url }) => ({ login, name, avatar_url, html_url })
-		)
-	}
-	
-	if (repos.length) {
-		repos = repos.map( 
-			({ name, fork, description, forks_count, html_url, language, watchers, default_branch, homepage, pushed_at, topics }) => {
-				const timestamp = Math.floor(new Date(pushed_at) / 1000)
-				return ({ name, fork, description, forks_count, html_url, language, watchers, default_branch, homepage, timestamp, topics, pushed_at })
-			}
-		)
-
-		repos.sort( (a, b) => b.timestamp - a.timestamp )
-
-		repos = repos.filter( (e, i) => {
-			if ( i < 8 && ! e.topics.includes('github-config')) return e
-			return false
-		})
-	}
-
-	if (!repos || !user) { return { notFound: true,	} }
-
-	return { props: { repos, user } }
+const styles = {
+  page: {
+    minHeight: "100vh",
+    padding: "120px 24px",
+    maxWidth: "1100px",
+    margin: "0 auto",
+  },
+  title: {
+    fontSize: "3rem",
+    marginBottom: "8px",
+  },
+  subtitle: {
+    opacity: 0.7,
+    marginBottom: "60px",
+  },
+  card: {
+    display: "flex",
+    gap: "40px",
+    background: "rgba(255,255,255,0.04)",
+    borderRadius: "20px",
+    padding: "32px",
+    alignItems: "center",
+    flexWrap: "wrap",
+  },
+  imageWrapper: {
+    flex: "0 0 300px",
+  },
+  image: {
+    borderRadius: "16px",
+  },
+  content: {
+    flex: 1,
+  },
+  description: {
+    opacity: 0.85,
+    marginBottom: "20px",
+  },
+  tags: {
+    display: "flex",
+    gap: "10px",
+    marginBottom: "24px",
+  },
+  actions: {
+    display: "flex",
+    gap: "16px",
+    flexWrap: "wrap",
+  },
+  primaryBtn: {
+    padding: "12px 20px",
+    borderRadius: "999px",
+    border: "none",
+    background: "#6fffd2",
+    color: "#000",
+    cursor: "pointer",
+    fontWeight: 600,
+  },
+  secondaryBtn: {
+    padding: "12px 20px",
+    borderRadius: "999px",
+    border: "1px solid rgba(255,255,255,0.3)",
+    background: "transparent",
+    color: "#fff",
+    cursor: "pointer",
+  },
 }

@@ -1,6 +1,8 @@
 import Container from '../structure/container'
 import Icon from '../utils/icon.util'
 import RateMe from "../utils/RateMe"
+import GameDownloadCard from "../blocks/GameDownloadCard"
+
 
 import css from '../../styles/structure/footer.module.scss'
 
@@ -36,6 +38,8 @@ export default function Footer() {
             © Lakshya Badjatya {new Date().getFullYear()}
           </h5>
         </section>
+
+
 
         {/* ⭐ RATE ME SECTION */}
         <section className={css.rateMe}>

@@ -1,12 +1,20 @@
-import Navbar from './navbar'
-import Footer from './footer'
+import { useRouter } from "next/router"
+import Navbar from "./navbar"
+import Footer from "./footer"
 
 export default function Layout({ children }) {
-	return (
-		<>
-		<Navbar />
-		<main>{children}</main>
-		<Footer />
-		</>
-	)
+  const router = useRouter()
+
+  // Decide header title based on route
+  const headerTitle = router.pathname.startsWith("/projects")
+    ? "Projects"
+    : "Lakshya Badjatya"
+
+  return (
+    <>
+      <Navbar title={headerTitle} />
+      <main>{children}</main>
+      <Footer />
+    </>
+  )
 }

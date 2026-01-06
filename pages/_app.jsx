@@ -1,14 +1,13 @@
 // Core packages
 import { useEffect } from 'react'
-import DynamicWatermark from '../components/utils/DynamicWatermark'
-import Preloader from '../components/layout/Preloader'
-import { Analytics } from '@vercel/analytics/react'
+import { useRouter } from 'next/router'
 import { LazyMotion, domAnimation } from 'framer-motion'
+import { Analytics } from '@vercel/analytics/react'
 
-// Utils
+// Components
+import Preloader from '../components/layout/Preloader'
+import DynamicWatermark from '../components/utils/DynamicWatermark'
 import SetGridGap from '../components/utils/set.grid.util'
-
-// Structure
 import Layout from '../components/layout/layout'
 
 // CSS reset
@@ -32,6 +31,8 @@ import '../styles/css/global.css'
  * _app.jsx
  */
 export default function MyApp({ Component, pageProps }) {
+  const router = useRouter()
+  const isHome = router.pathname === '/'
 
   /* ===============================
      BASIC CONTENT PROTECTION
@@ -76,7 +77,8 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <LazyMotion features={domAnimation}>
-      <Preloader />
+      {/* ✅ Preloader ONLY on home page */}
+      {isHome && <Preloader />}
 
       <Layout>
         {/* 🔒 Watermark always on top */}

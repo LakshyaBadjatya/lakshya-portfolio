@@ -209,6 +209,15 @@
 				margin: 2rem;
 			}
 		}
+		.rightGroup {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* 🔹 moves Projects closer to mode changer */
+}
+
+
+
 	}
 }
 
