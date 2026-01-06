@@ -17,7 +17,6 @@ import about from '../../../styles/sections/index/about.module.scss'
 
 /**
  * Section: About
- * Student-focused overview
  */
 export default function About() {
   return (

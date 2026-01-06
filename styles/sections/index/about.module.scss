@@ -156,3 +156,30 @@
 		}
 	}
 }
+
+.image {
+  transform: translateY(-10px);
+}
+
+.image img {
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+.image {
+  transform: translateY(-10px);
+}
+
+.image img {
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+.content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: stretch;        // 🚨 THIS FIXES HANDS
+}
+
+
+
