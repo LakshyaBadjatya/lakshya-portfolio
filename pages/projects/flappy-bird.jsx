@@ -44,7 +44,7 @@ export default function FlappyBirdProject() {
 
         <h2>⬇️ Download</h2>
         <a
-          href="/downloads/Flappy Bird v1.0.1.apk"
+          href="/downloads/Flappy.apk"
           download
           style={{
             display: "inline-block",
