@@ -1,6 +1,6 @@
 [
 	{
-		"url": "/",
+		"url": "/aboutme",
 		"title": "About Me"
 	},
 	{
@@ -13,6 +13,6 @@
 	},
 	{
 		"url": "/projects",
-		"title": "Projects"
+		"title": "Lakshya Badjatya"
 	}
 ]

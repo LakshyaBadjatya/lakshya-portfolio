@@ -15,7 +15,8 @@ export default function AboutMe() {
 
         {/* HERO */}
         <section className="hero">
-          <h1 className="theme-gradient-text">Lakshya Badjatya</h1>
+          <h1 className="theme-gradient-text">About Me</h1>
+          <p className="tag">Lakshya Badjatya</p>
           <p className="tag">
             Class 12 PCM Student • Future CS Undergraduate • Aspiring Founder
           </p>

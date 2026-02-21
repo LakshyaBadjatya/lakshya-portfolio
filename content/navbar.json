@@ -1,1 +1,8 @@
-[]
+[{
+		"url": "/projects",
+		"title": "Projects"
+	},
+	{
+		"url": "/aboutme",
+		"title": "About Me"
+	}]

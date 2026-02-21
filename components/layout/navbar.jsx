@@ -27,31 +27,34 @@ export default function Navbar({ title }) {
     menuToggle(!menuState)
   }
 
-  const isHome = router.pathname === "/"
+  /* -------- AUTO PAGE TITLE LOGIC -------- */
+  const getPageTitle = () => {
+    if (title) return title // allow manual override
+
+    const path = router.pathname.toLowerCase()
+
+    if (path === "/") return settings.name
+    if (path.includes("projects")) return "Projects"
+    if (path.includes("about")) return "About Me"
+
+    // fallback: use site name
+    return settings.name
+  }
+
+  const pageTitle = getPageTitle()
 
   return (
     <nav id="Navbar" className={css.container}>
       <ul className={css.menu}>
         <li className={css.menuHeader}>
 
-          {/* LEFT: Name pill */}
+          {/* LEFT: Dynamic title pill */}
           <Link className={css.logo} href="/">
-            {title || settings.name}
+            {pageTitle}
           </Link>
 
-          {/* RIGHT LINKS */}
+          {/* RIGHT LINKS (desktop links if you add later) */}
           <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
-
-            {/* Projects link */}
-            <Link href="/projects" className={css.projectsLink}>
-              Projects
-            </Link>
-
-            {/* ✅ NEW: About Me link */}
-            <Link href="/aboutme" className={css.projectsLink}>
-              About Me
-            </Link>
-
           </div>
 
           <button
