@@ -56,7 +56,7 @@ and my approach to learning and building real-world projects.
 
 ## 🧑‍🎓 About Me
 
-I am a **Class 11 PCM student** with a strong interest in **Computer Science and
+I am a **Class 12 PCM student** with a strong interest in **Computer Science and
 Software Development**.
 
 I enjoy:

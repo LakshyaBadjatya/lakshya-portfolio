@@ -16,7 +16,7 @@ export default function HomePage() {
         <title>Lakshya Badjatya | Student Portfolio & Developer</title>
         <meta
           name="description"
-          content="Lakshya Badjatya is a Class 11 PCM student showcasing projects, skills, and learning in computer science, web development, and game development."
+          content="Lakshya Badjatya is a Class 12 PCM student showcasing projects, skills, and learning in computer science, web development, and game development."
         />
         <meta name="author" content="Lakshya Badjatya" />
         <meta name="robots" content="index, follow" />

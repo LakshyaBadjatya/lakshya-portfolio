@@ -39,7 +39,7 @@ export default function About() {
               containerClass={about.container}
               iconClass={about.icon}
               icon={['fat', 'user']}
-              copy="I am a Class 11 PCM student from India with a strong interest in computer science and technology. I enjoy understanding how software works, building small projects, and continuously improving my skills through practice and exploration."
+              copy="I am a Class 12 PCM student from India with a strong interest in computer science and technology. I enjoy understanding how software works, building small projects, and continuously improving my skills through practice and exploration."
             />
 
             <CopyBlock

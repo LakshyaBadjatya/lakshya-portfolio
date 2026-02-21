@@ -32,12 +32,12 @@ export default function Career() {
             <div className={career.companyContent}>
               <span className={career.companyHeader}>
                 <h3>Student & Aspiring Computer Scientist</h3>
-                <h4>Class 11 · PCM</h4>
+                <h4>Class 12 · PCM</h4>
                 <h4>2025 – Present</h4>
                 <h5>India</h5>
               </span>
               <p>
-                I am a Class 11 PCM student with a strong interest in computer science and software
+                I am a Class 12 PCM student with a strong interest in computer science and software
                 development. I enjoy learning programming, building projects, and experimenting with
                 modern technologies. My focus is on developing strong fundamentals while preparing
                 for competitive exams and future global opportunities.

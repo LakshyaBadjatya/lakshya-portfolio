@@ -33,17 +33,26 @@ export default function Navbar({ title }) {
     <nav id="Navbar" className={css.container}>
       <ul className={css.menu}>
         <li className={css.menuHeader}>
+
           {/* LEFT: Name pill */}
           <Link className={css.logo} href="/">
             {title || settings.name}
           </Link>
 
-          {/* RIGHT: Projects link (HOME ONLY) */}
-          {isHome && (
+          {/* RIGHT LINKS */}
+          <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
+
+            {/* Projects link */}
             <Link href="/projects" className={css.projectsLink}>
               Projects
             </Link>
-          )}
+
+            {/* ✅ NEW: About Me link */}
+            <Link href="/aboutme" className={css.projectsLink}>
+              About Me
+            </Link>
+
+          </div>
 
           <button
             onClick={toggleMenu}
@@ -55,8 +64,10 @@ export default function Navbar({ title }) {
               <span></span>
             </div>
           </button>
+
         </li>
 
+        {/* MOBILE MENU */}
         <li data-open={menuState} className={css.menuContent}>
           <ul>
             {content.map(({ url, title }, index) => (
