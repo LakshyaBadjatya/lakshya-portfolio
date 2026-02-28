@@ -1,6 +1,25 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 export default function AboutMe() {
+  const [quotes, setQuotes] = useState([]);
+
+  useEffect(() => {
+    fetch("/quotes.txt")
+      .then((res) => res.text())
+      .then((text) => {
+        const lines = text.split("\n").filter(Boolean);
+        const formatted = lines.map((line) => {
+          const [quote, author] = line.split("|");
+          return {
+            quote: quote.trim(),
+            author: author?.trim(),
+          };
+        });
+        setQuotes(formatted);
+      });
+  }, []);
+
   return (
     <>
       <Head>
@@ -81,8 +100,17 @@ export default function AboutMe() {
             </p>
           </div>
 
-          <div className="quote wide">
-            “The greatest risk is not taking any risk.” — Mark Zuckerberg
+          {/* QUOTES SECTION */}
+          <div className="quotes wide">
+            <h3>✨ Personal Favorite Quotes</h3>
+
+            {quotes.map((item, index) => (
+              <div key={index} className="quote-item">
+                “{item.quote}”
+                <span>— {item.author}</span>
+              </div>
+            ))}
+
           </div>
 
         </section>
@@ -148,17 +176,38 @@ export default function AboutMe() {
           grid-column:1/-1;
         }
 
-        .quote{
-          padding:30px;
-          text-align:center;
-          font-style:italic;
+        .quotes{
+          padding:35px;
           border-radius:18px;
           background:linear-gradient(
-            90deg,
-            rgba(0,0,0,0.25),
+            120deg,
+            rgba(0,0,0,0.35),
             rgba(0,0,0,0.15)
           );
-          border:1px solid rgba(255,255,255,0.1);
+          border:1px solid rgba(255,255,255,0.12);
+          backdrop-filter:blur(12px);
+          text-align:center;
+        }
+
+        .quotes h3{
+          margin-bottom:25px;
+          font-size:22px;
+          opacity:.9;
+        }
+
+        .quote-item{
+          font-style:italic;
+          font-size:18px;
+          margin-bottom:22px;
+          line-height:1.7;
+        }
+
+        .quote-item span{
+          display:block;
+          margin-top:8px;
+          font-style:normal;
+          font-size:15px;
+          opacity:.6;
         }
 
         @media(max-width:700px){
