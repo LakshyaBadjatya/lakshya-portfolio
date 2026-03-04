@@ -5,6 +5,21 @@ export default function Document() {
     <Html lang="en">
       <Head>
 
+        {/* Theme initialization BEFORE React */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function() {
+  try {
+    var theme = localStorage.getItem("theme");
+    if (!theme) theme = "light";
+    document.documentElement.setAttribute("data-theme", theme);
+  } catch (e) {}
+})();
+            `,
+          }}
+        />
+
         {/* Google AdSense */}
         <script
           async
@@ -12,7 +27,7 @@ export default function Document() {
           crossOrigin="anonymous"
         />
 
-        {/* Primary SEO (REMOVE title from here — keep only meta) */}
+        {/* Primary SEO */}
         <meta
           name="description"
           content="Student portfolio showcasing projects, skills, and learning journey in computer science, web development, and game development."
@@ -46,7 +61,7 @@ export default function Document() {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#000000" />
 
-        {/* ✅ PERSON SCHEMA — THIS IS WHAT GOOGLE AI READS */}
+        {/* Person Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

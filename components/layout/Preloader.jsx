@@ -24,7 +24,7 @@ export default function Preloader() {
   return (
     <div style={styles.wrapper}>
       <div style={styles.animation}>
-        <Lottie animationData={animationData} loop={true} />
+        <Lottie animationData={animationData} loop />
       </div>
     </div>
   )
@@ -34,7 +34,7 @@ const styles = {
   wrapper: {
     position: "fixed",
     inset: 0,
-    background: "#000",
+    background: "var(--background)", // uses theme background automatically
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
