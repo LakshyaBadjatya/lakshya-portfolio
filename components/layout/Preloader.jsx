@@ -1,27 +1,31 @@
 import { useEffect, useState } from "react"
+import Lottie from "lottie-react"
+import animationData from "../../public/preloader.json"
 
 export default function Preloader() {
-  const [show, setShow] = useState(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShow(false)
-    }, 3500) // duration of animation
+    const handleLoad = () => {
+      setLoading(false)
+      document.body.classList.add("loaded")
+    }
 
-    return () => clearTimeout(timer)
+    if (document.readyState === "complete") {
+      handleLoad()
+    } else {
+      window.addEventListener("load", handleLoad)
+      return () => window.removeEventListener("load", handleLoad)
+    }
   }, [])
 
-  if (!show) return null
+  if (!loading) return null
 
   return (
     <div style={styles.wrapper}>
-      <video
-        src="/preloader.webm"
-        autoPlay
-        muted
-        playsInline
-        style={styles.video}
-      />
+      <div style={styles.animation}>
+        <Lottie animationData={animationData} loop={true} />
+      </div>
     </div>
   )
 }
@@ -31,21 +35,14 @@ const styles = {
     position: "fixed",
     inset: 0,
     background: "#000",
-    display: "grid",
-    placeItems: "center",
-    zIndex: 9999,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 99999
   },
 
-  video: {
-    /* 🔑 RESPONSIVE SCALING */
-    width: "clamp(220px, 50vw, 520px)",
-    height: "auto",
-
-    /* Maintain proportions */
-    maxWidth: "90vw",
-    maxHeight: "90vh",
-
-    /* Prevent pixel stretching */
-    objectFit: "contain",
-  },
+  animation: {
+    width: "clamp(220px, 40vw, 420px)",
+    maxWidth: "80vw"
+  }
 }
