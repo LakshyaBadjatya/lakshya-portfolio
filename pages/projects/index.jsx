@@ -1,8 +1,17 @@
 import Head from "next/head"
 import Link from "next/link"
 import Image from "next/image"
+import { motion } from "framer-motion"
 
 export default function ProjectsPage() {
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i) => ({
+      opacity: 1, y: 0,
+      transition: { delay: i * 0.12, duration: 0.6, ease: [0.25, 0.4, 0.25, 1] },
+    }),
+  }
+
   return (
     <>
       <Head>
@@ -14,23 +23,45 @@ export default function ProjectsPage() {
       </Head>
 
       <main style={styles.page}>
-        <h1 style={styles.title}>My Projects</h1>
-        <p style={styles.subtitle}>
-          A collection of projects I’ve built while learning computer science
+        <motion.h1
+          style={styles.title}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          My Projects
+        </motion.h1>
+        <motion.p
+          style={styles.subtitle}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.7 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          A collection of projects I've built while learning computer science
           and software development.
-        </p>
+        </motion.p>
 
         {/* PROJECT CARD */}
-        <section style={styles.card}>
-          <div style={styles.imageWrapper}>
+        <motion.section
+          style={styles.card}
+          custom={1}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          whileHover={{ y: -6, boxShadow: "0 20px 60px rgba(0,0,0,0.3)", transition: { duration: 0.3 } }}
+        >
+          <motion.div
+            style={styles.imageWrapper}
+            whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
+          >
             <Image
-              src="/img/flappy-bird-preview.webp"   // 👈 put image in /public/img/
+              src="/img/flappy-bird-preview.webp"
               alt="Flappy Bird Game"
               width={300}
               height={300}
               style={styles.image}
             />
-          </div>
+          </motion.div>
 
           <div style={styles.content}>
             <h2>Flappy Bird</h2>
@@ -41,22 +72,41 @@ export default function ProjectsPage() {
             </p>
 
             <div style={styles.tags}>
-              <span>Unity</span>
-              <span>C#</span>
-              <span>Game Dev</span>
+              {["Unity", "C#", "Game Dev"].map((tag) => (
+                <motion.span
+                  key={tag}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  transition={{ duration: 0.2 }}
+                  style={styles.tag}
+                >
+                  {tag}
+                </motion.span>
+              ))}
             </div>
 
             <div style={styles.actions}>
               <Link href="/projects/flappy-bird">
-                <button style={styles.primaryBtn}>View Details</button>
+                <motion.button
+                  style={styles.primaryBtn}
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(111,255,210,0.4)" }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  View Details
+                </motion.button>
               </Link>
 
               <a href="/downloads/Flappy.apk" download>
-                <button style={styles.secondaryBtn}>Download Game</button>
+                <motion.button
+                  style={styles.secondaryBtn}
+                  whileHover={{ scale: 1.05, borderColor: "rgba(255,255,255,0.6)" }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Download Game
+                </motion.button>
               </a>
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
     </>
   )
@@ -85,6 +135,9 @@ const styles = {
     padding: "32px",
     alignItems: "center",
     flexWrap: "wrap",
+    border: "1px solid rgba(255,255,255,0.06)",
+    transition: "border-color 0.3s",
+    cursor: "default",
   },
   imageWrapper: {
     flex: "0 0 300px",
@@ -103,6 +156,14 @@ const styles = {
     display: "flex",
     gap: "10px",
     marginBottom: "24px",
+  },
+  tag: {
+    padding: "4px 14px",
+    borderRadius: "99px",
+    border: "1px solid rgba(255,255,255,0.15)",
+    fontSize: "0.85rem",
+    display: "inline-block",
+    cursor: "default",
   },
   actions: {
     display: "flex",
@@ -123,7 +184,8 @@ const styles = {
     borderRadius: "999px",
     border: "1px solid rgba(255,255,255,0.3)",
     background: "transparent",
-    color: "#fff",
+    color: "var(--primary)",
     cursor: "pointer",
+    transition: "border-color 0.3s",
   },
 }

@@ -36,6 +36,23 @@
 		}
 	}
 
+	.desktopNav {
+		display: flex;
+		align-items: center;
+		gap: 18px;
+	}
+
+	.desktopLink {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--primary-dim);
+		transition: color 0.2s ease;
+
+		&:hover {
+			color: var(--primary-bright);
+		}
+	}
+
 	.mobileButton {
 		display: none;
 	}
@@ -180,6 +197,9 @@
 			}
 		}
 
+		.desktopNav {
+			display: none !important;
+		}
 		.menuContainer {
 			position: relative;
 		}

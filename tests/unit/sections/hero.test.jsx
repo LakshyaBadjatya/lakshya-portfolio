@@ -8,7 +8,7 @@ describe('Hero section parts', () => {
 		render(<Hero />)
 		
 		const heading = screen.getByRole('heading', {
-			name: /Lakdhya Badjatya\./i,
+			name: /Lakshya Badjatya\./i,
 		})
 		
 		expect(heading).toBeInTheDocument()

@@ -7,6 +7,7 @@ import Preloader from '../components/layout/Preloader'
 import DynamicWatermark from '../components/utils/DynamicWatermark'
 import SetGridGap from '../components/utils/set.grid.util'
 import Layout from '../components/layout/layout'
+import { CustomCursor } from '../components/utils/MouseEffects'
 
 import '../node_modules/the-new-css-reset/css/reset.css'
 
@@ -63,6 +64,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <LazyMotion features={domAnimation}>
       {isHome && <Preloader />}
+      <CustomCursor />
 
       <Layout>
         <DynamicWatermark />

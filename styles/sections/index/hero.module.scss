@@ -69,6 +69,18 @@
 	}
 }
 
+.buttons {
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.heroBgParallax {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+
 /* ========================= */
 /* HERO BACKGROUND */
 /* ========================= */

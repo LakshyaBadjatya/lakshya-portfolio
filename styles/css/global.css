@@ -332,3 +332,30 @@ body{
   background-clip:text;
   color:transparent
 }
+
+/* Custom cursor: hide default on desktop */
+@media (hover:hover) and (pointer:fine) {
+  * { cursor: none !important; }
+}
+
+/* Smooth scroll transitions */
+section, [class*="section"] {
+  transition: opacity 0.3s ease;
+}
+
+/* Interactive element hover glow */
+@media (hover:hover) {
+  button.button:hover {
+    box-shadow: 0 0 20px rgba(127,234,255,0.15);
+  }
+}
+
+/* Blur effect on tab switch */
+body.blurred > * {
+  filter: blur(8px);
+  transition: filter 0.3s ease;
+}
+body:not(.blurred) > * {
+  filter: none;
+  transition: filter 0.3s ease;
+}

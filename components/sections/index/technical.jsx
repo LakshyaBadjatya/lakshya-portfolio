@@ -1,5 +1,7 @@
 // Core packages
 import Image from 'next/image'
+import { m } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 // Section structure
 import Section from '../../structure/section'
@@ -15,11 +17,17 @@ import CopyBlock from '../../blocks/about.copy.block'
 // Section scss
 import about from '../../../styles/sections/index/about.module.scss'
 
-/**
- * Section: Technical
- * Highlight technical skills and tools (student version)
- */
 export default function Technical() {
+  const { ref, inView } = useInView({ threshold: 0.15, triggerOnce: true })
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: (i) => ({
+      opacity: 1, y: 0,
+      transition: { delay: i * 0.15, duration: 0.6, ease: [0.25, 0.4, 0.25, 1] },
+    }),
+  }
+
   return (
     <Section classProp={`${about.section} borderBottom`}>
       <Container spacing={['verticalXXXLrg']}>
@@ -29,47 +37,75 @@ export default function Technical() {
           subTitle="The tools and technologies I am currently learning and using in my projects."
         />
 
-        <section className={`${about.content} ${about.container}`}>
+        <section className={`${about.content} ${about.container}`} ref={ref}>
           <div className={about.copy}>
-            <CopyBlock
-              title="Learning foundations"
-              icon={['fat', 'code']}
-              copy="I am building a strong foundation in computer science through academics, self-learning, and hands-on projects. I enjoy understanding how things work, writing clean code, and gradually improving my technical and problem-solving skills."
-              iconClass={about.icon}
-              containerClass={about.container}
-            />
+            <m.div
+              custom={0}
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+              variants={fadeUp}
+            >
+              <CopyBlock
+                title="Learning foundations"
+                icon={['fat', 'code']}
+                copy="I am building a strong foundation in computer science through academics, self-learning, and hands-on projects. I enjoy understanding how things work, writing clean code, and gradually improving my technical and problem-solving skills."
+                iconClass={about.icon}
+                containerClass={about.container}
+              />
+            </m.div>
 
-            <BadgesBlock
-              title="Tools & Software I use"
-              copy="These are some of the tools and platforms I regularly use for learning, development, design, and productivity."
-              list={software}
-              block="software"
-              fullContainer="fullContainer"
-              icon="grid-2-plus"
-              containerClass={about.container}
-              headerIcon={about.icon}
-            />
+            <m.div
+              custom={1}
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+              variants={fadeUp}
+            >
+              <BadgesBlock
+                title="Tools & Software I use"
+                copy="These are some of the tools and platforms I regularly use for learning, development, design, and productivity."
+                list={software}
+                block="software"
+                fullContainer="fullContainer"
+                icon="grid-2-plus"
+                containerClass={about.container}
+                headerIcon={about.icon}
+              />
+            </m.div>
 
-            <BadgesBlock
-              title="Technologies I am learning"
-              copy="I am actively learning and experimenting with these technologies through small projects, practice, and exploration."
-              list={tech}
-              block="tech"
-              fullContainer="fullContainer"
-              icon="laptop-code"
-              containerClass={about.container}
-              headerIcon={about.icon}
-            />
+            <m.div
+              custom={2}
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+              variants={fadeUp}
+            >
+              <BadgesBlock
+                title="Technologies I am learning"
+                copy="I am actively learning and experimenting with these technologies through small projects, practice, and exploration."
+                list={tech}
+                block="tech"
+                fullContainer="fullContainer"
+                icon="laptop-code"
+                containerClass={about.container}
+                headerIcon={about.icon}
+              />
+            </m.div>
           </div>
 
-          <div className={`${about.image} ${about.technicalSvg}`}>
+          <m.div
+            className={`${about.image} ${about.technicalSvg}`}
+            custom={3}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            variants={fadeUp}
+            whileHover={{ scale: 1.02, rotate: 1, transition: { duration: 0.4 } }}
+          >
             <Image
               src="/img/dataism-24.svg"
               width={477}
               height={1111}
               alt="Abstract technical illustration"
             />
-          </div>
+          </m.div>
         </section>
       </Container>
     </Section>
