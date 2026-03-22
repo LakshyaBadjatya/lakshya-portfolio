@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { LazyMotion, domAnimation } from 'framer-motion'
+import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion'
 import { Analytics } from '@vercel/analytics/react'
 
 import Preloader from '../components/layout/Preloader'
@@ -68,7 +68,17 @@ export default function MyApp({ Component, pageProps }) {
 
       <Layout>
         <DynamicWatermark />
-        <Component {...pageProps} />
+        <AnimatePresence mode="wait" initial={false}>
+          <m.div
+            key={router.pathname}
+            initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -12, filter: 'blur(4px)' }}
+            transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
+          >
+            <Component {...pageProps} />
+          </m.div>
+        </AnimatePresence>
         <SetGridGap />
         <Analytics />
       </Layout>

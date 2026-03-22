@@ -29,24 +29,24 @@ export default function Navbar({ title }) {
   /* Track scroll for nav background */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const toggleMenu = () => {
-    menuToggle(!menuState)
-  }
+  const toggleMenu = () => menuToggle(!menuState)
 
   const getPageTitle = () => {
     if (title) return title
     const path = router.pathname.toLowerCase()
-    if (path === "/") return settings.name
-    if (path.includes("projects")) return "Projects"
-    if (path.includes("about")) return "About Me"
+    if (path === '/') return settings.name
+    if (path.includes('projects')) return 'Projects'
+    if (path.includes('about')) return 'About Me'
     return settings.name
   }
 
   const pageTitle = getPageTitle()
+
+  const isActive = (url) => router.pathname === url || router.pathname.startsWith(url + '/')
 
   return (
     <m.nav
@@ -54,7 +54,7 @@ export default function Navbar({ title }) {
       className={css.container}
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
       data-scrolled={scrolled}
     >
       <ul className={css.menu}>
@@ -67,15 +67,38 @@ export default function Navbar({ title }) {
             </Link>
           </MagneticButton>
 
-          {/* Desktop nav links (hidden on mobile via CSS) */}
-          <div className={css.desktopNav} style={{ display: "flex", alignItems: "center", gap: "18px" }}>
+          {/* Desktop nav links */}
+          <div className={css.desktopNav} style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
             {content.map(({ url, title }, index) => (
               <MagneticButton key={index} strength={0.15}>
-                <Link href={url} className={css.desktopLink}>
-                  {title}
-                </Link>
+                <div style={{ position: 'relative' }}>
+                  <Link href={url} className={css.desktopLink}>
+                    {title}
+                  </Link>
+                  {/* Active underline indicator */}
+                  {isActive(url) && (
+                    <m.div
+                      layoutId="nav-active"
+                      style={{
+                        position: 'absolute',
+                        bottom: '-3px',
+                        left: 0,
+                        right: 0,
+                        height: '2px',
+                        background: 'var(--secondary)',
+                        borderRadius: '99px',
+                        boxShadow: '0 0 8px var(--secondary)',
+                      }}
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </div>
               </MagneticButton>
             ))}
+          </div>
+
+          {/* Theme toggle — far right on desktop */}
+          <div className={css.themeToggle}>
             <ThemeMode />
           </div>
 

@@ -122,7 +122,7 @@
 			aspect-ratio: 1/1;
 			bottom: -60%;
 
-			opacity: 20%;
+			opacity: 35%;
 			transform: translateZ(0);
 
 			background: var(--bar-gradient);
@@ -156,7 +156,7 @@
 	}
 
 	.barGradient {
-		--bar-opacity: 0.15;
+		--bar-opacity: 0.25;
 		--bar-blend-mode: screen;
 
 		--bar-gradient: linear-gradient(

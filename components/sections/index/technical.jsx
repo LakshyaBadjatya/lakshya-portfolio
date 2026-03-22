@@ -28,6 +28,14 @@ export default function Technical() {
     }),
   }
 
+  const svgVariant = {
+    hidden: { opacity: 0, x: 40, scale: 0.95 },
+    visible: {
+      opacity: 1, x: 0, scale: 1,
+      transition: { duration: 0.8, ease: [0.25, 0.4, 0.25, 1], delay: 0.3 },
+    },
+  }
+
   return (
     <Section classProp={`${about.section} borderBottom`}>
       <Container spacing={['verticalXXXLrg']}>
@@ -42,7 +50,7 @@ export default function Technical() {
             <m.div
               custom={0}
               initial="hidden"
-              animate={inView ? "visible" : "hidden"}
+              animate={inView ? 'visible' : 'hidden'}
               variants={fadeUp}
             >
               <CopyBlock
@@ -57,7 +65,7 @@ export default function Technical() {
             <m.div
               custom={1}
               initial="hidden"
-              animate={inView ? "visible" : "hidden"}
+              animate={inView ? 'visible' : 'hidden'}
               variants={fadeUp}
             >
               <BadgesBlock
@@ -75,7 +83,7 @@ export default function Technical() {
             <m.div
               custom={2}
               initial="hidden"
-              animate={inView ? "visible" : "hidden"}
+              animate={inView ? 'visible' : 'hidden'}
               variants={fadeUp}
             >
               <BadgesBlock
@@ -93,11 +101,10 @@ export default function Technical() {
 
           <m.div
             className={`${about.image} ${about.technicalSvg}`}
-            custom={3}
             initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            variants={fadeUp}
-            whileHover={{ scale: 1.02, rotate: 1, transition: { duration: 0.4 } }}
+            animate={inView ? 'visible' : 'hidden'}
+            variants={svgVariant}
+            whileHover={{ scale: 1.03, rotate: 1.5, transition: { duration: 0.4, type: 'spring', stiffness: 200 } }}
           >
             <Image
               src="/img/dataism-24.svg"

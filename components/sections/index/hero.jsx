@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { m } from 'framer-motion'
 import { TypeAnimation } from 'react-type-animation'
 
@@ -15,6 +15,81 @@ import hero from '../../../styles/sections/index/hero.module.scss'
 import button from '../../../styles/blocks/button.module.scss'
 
 import content from '../../../content/index/hero.json'
+
+/* ─── Floating Particles ──────────────────────────────── */
+function FloatingParticles() {
+  const particles = useMemo(() =>
+    Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      x: `${8 + ((i * 5.4 + i * i * 0.8) % 82)}%`,
+      y: `${5 + ((i * 11.7 + i * 2.1) % 85)}%`,
+      size: 1.5 + (i % 3) * 1.3,
+      duration: 5 + (i % 7) * 1.5,
+      delay: (i % 6) * 0.65,
+    })), []
+  )
+
+  return (
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden', zIndex: 0 }}>
+      {particles.map(p => (
+        <m.div
+          key={p.id}
+          style={{
+            position: 'absolute',
+            left: p.x,
+            top: p.y,
+            width: p.size,
+            height: p.size,
+            borderRadius: '50%',
+            background: 'var(--secondary)',
+            boxShadow: `0 0 ${p.size * 4}px var(--secondary)`,
+          }}
+          animate={{
+            y: [0, -28, 0],
+            opacity: [0.08, 0.5, 0.08],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{
+            duration: p.duration,
+            delay: p.delay,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+/* ─── Split Text ──────────────────────────────────────── */
+function AnimatedText({ text, className, delay = 0 }) {
+  const chars = text.split('')
+  return (
+    <m.span
+      className={className}
+      style={{ display: 'inline-block', perspective: '600px' }}
+      initial="hidden"
+      animate="visible"
+      variants={{ visible: { transition: { staggerChildren: 0.038, delayChildren: delay } } }}
+    >
+      {chars.map((char, i) => (
+        <m.span
+          key={i}
+          style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : undefined }}
+          variants={{
+            hidden: { opacity: 0, y: 45, rotateX: -70, transformOrigin: '50% 0%' },
+            visible: {
+              opacity: 1, y: 0, rotateX: 0,
+              transition: { duration: 0.55, ease: [0.25, 0.4, 0.25, 1] },
+            },
+          }}
+        >
+          {char}
+        </m.span>
+      ))}
+    </m.span>
+  )
+}
 
 export default function Hero() {
 
@@ -41,13 +116,8 @@ export default function Hero() {
     <Section classProp={`${hero.section}`}>
       <Container spacing={'VerticalXXXL'}>
 
-        {/* Typing animation with fade-in */}
-        <m.div
-          custom={0}
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-        >
+        {/* Typing animation */}
+        <m.div custom={0} initial="hidden" animate="visible" variants={fadeUp}>
           {!isMobile ? (
             <TypeAnimation
               className={`${hero.preHeader}`}
@@ -73,19 +143,14 @@ export default function Hero() {
         </m.div>
 
         <section>
-          <m.h1
-            className={hero.header}
-            custom={1}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-          >
-            {content.header.name}
-          </m.h1>
+          {/* Letter-by-letter animated name */}
+          <h1 className={hero.header}>
+            <AnimatedText text={content.header.name} delay={0.75} />
+          </h1>
 
           <m.h1
             className={`${hero.header} ${hero.primaryDim}`}
-            custom={2}
+            custom={3}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
@@ -94,19 +159,14 @@ export default function Hero() {
           </m.h1>
         </section>
 
-        <m.section
-          custom={3}
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-        >
-          <p className={`${hero.primaryBright} subtitle ${space(["verticalLrg"])}`}>
+        <m.section custom={4} initial="hidden" animate="visible" variants={fadeUp}>
+          <p className={`${hero.primaryBright} subtitle ${space(['verticalLrg'])}`}>
             {content.paragraph}
           </p>
         </m.section>
 
         <m.section
-          custom={4}
+          custom={5}
           initial="hidden"
           animate="visible"
           variants={fadeUp}
@@ -115,8 +175,8 @@ export default function Hero() {
           <m.button
             className={`button ${button.primary}`}
             onClick={() => window.location = 'mailto:lakshyabadjatya@gmail.com'}
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={{ scale: 1.07, y: -4, boxShadow: '0 12px 32px rgba(127,234,255,0.35)' }}
+            whileTap={{ scale: 0.96 }}
           >
             {content.buttons.primary.title}
           </m.button>
@@ -124,10 +184,10 @@ export default function Hero() {
           <m.button
             className={`button ${button.secondary} leaveSite`}
             onClick={() =>
-              window.open("https://www.linkedin.com/in/lakshya-badjatya/", "_blank")
+              window.open('https://www.linkedin.com/in/lakshya-badjatya/', '_blank')
             }
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={{ scale: 1.07, y: -4 }}
+            whileTap={{ scale: 0.96 }}
           >
             {content.buttons.secondary.title}
           </m.button>
@@ -135,9 +195,53 @@ export default function Hero() {
 
       </Container>
 
-      {/* Background animation with mouse parallax */}
+      {/* Floating Particles */}
+      <FloatingParticles />
+
+      {/* Background with mouse parallax */}
       <m.div style={{ x: parallax.x, y: parallax.y }} className={hero.heroBgParallax}>
         <HeroBg theme="bg-color-1" />
+      </m.div>
+
+      {/* Scroll indicator */}
+      <m.div
+        style={{
+          position: 'absolute',
+          bottom: '2rem',
+          left: '50%',
+          translateX: '-50%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '6px',
+          pointerEvents: 'none',
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.45 }}
+        transition={{ delay: 2.8, duration: 0.8 }}
+      >
+        <m.div
+          style={{
+            width: '26px',
+            height: '42px',
+            borderRadius: '13px',
+            border: '2px solid var(--primary-dim)',
+            display: 'flex',
+            justifyContent: 'center',
+            paddingTop: '7px',
+          }}
+        >
+          <m.div
+            animate={{ y: [0, 10, 0], opacity: [1, 0.2, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            style={{
+              width: '4px',
+              height: '8px',
+              borderRadius: '2px',
+              background: 'var(--primary-dim)',
+            }}
+          />
+        </m.div>
       </m.div>
 
     </Section>
