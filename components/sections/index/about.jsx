@@ -24,8 +24,14 @@ export default function About() {
     hidden: { opacity: 0, y: 40 },
     visible: (i) => ({
       opacity: 1, y: 0,
-      transition: { delay: i * 0.15, duration: 0.65, ease: [0.25, 0.4, 0.25, 1] },
+      transition: { delay: i * 0.18, duration: 0.75, ease: [0.25, 0.4, 0.25, 1] },
     }),
+  }
+
+  const cardHover = {
+    y: -4,
+    boxShadow: '0 20px 50px rgba(0,0,0,0.15), 0 0 20px var(--card-glow)',
+    transition: { duration: 0.3 },
   }
 
   return (
@@ -41,29 +47,29 @@ export default function About() {
           {/* Profile image */}
           <m.div
             className={about.image}
-            initial={{ opacity: 0, x: -40, scale: 0.95 }}
+            initial={{ opacity: 0, x: -50, scale: 0.95 }}
             animate={inView ? { opacity: 1, x: 0, scale: 1 } : {}}
-            transition={{ duration: 0.75, ease: [0.25, 0.4, 0.25, 1] }}
+            transition={{ duration: 0.9, ease: [0.25, 0.4, 0.25, 1] }}
             whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
             style={{ position: 'relative' }}
           >
-            {/* Glow ring using boxShadow animation */}
+            {/* Clean subtle border glow */}
             <m.div
               style={{
                 position: 'absolute',
-                inset: 0,
+                inset: '-1px',
                 borderRadius: '2rem',
                 zIndex: -1,
+                border: '1px solid var(--glass-border)',
               }}
               animate={inView ? {
                 boxShadow: [
-                  '0 0 0px 0px rgba(127,234,255,0)',
-                  '0 0 30px 4px rgba(127,234,255,0.25)',
-                  '0 0 50px 6px rgba(198,36,238,0.2)',
-                  '0 0 30px 4px rgba(127,234,255,0.25)',
+                  '0 0 0px rgba(255,255,255,0)',
+                  '0 0 20px rgba(255,255,255,0.04)',
+                  '0 0 0px rgba(255,255,255,0)',
                 ],
               } : {}}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
             />
             <img src="/img/profile-photo.webp" alt="Lakshya Badjatya" />
           </m.div>
@@ -74,6 +80,7 @@ export default function About() {
               initial="hidden"
               animate={inView ? 'visible' : 'hidden'}
               variants={fadeUp}
+              whileHover={cardHover}
             >
               <CopyBlock
                 title="Who I am"
@@ -89,6 +96,7 @@ export default function About() {
               initial="hidden"
               animate={inView ? 'visible' : 'hidden'}
               variants={fadeUp}
+              whileHover={cardHover}
             >
               <CopyBlock
                 title="How I work & learn"
@@ -104,6 +112,7 @@ export default function About() {
               initial="hidden"
               animate={inView ? 'visible' : 'hidden'}
               variants={fadeUp}
+              whileHover={cardHover}
             >
               <BadgesBlock
                 title="Interests & Focus Areas"

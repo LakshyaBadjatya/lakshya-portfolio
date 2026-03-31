@@ -8,27 +8,58 @@ export default function SectionTitle({ preTitle, title, subTitle }) {
 
   return (
     <div ref={ref} className={`${section.title}`}>
-      <m.h4
-        initial={{ opacity: 0, y: 16 }}
+      {/* Pre-title with gradient accent line */}
+      <m.div
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}
+        initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+        transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
       >
-        {preTitle}
-      </m.h4>
+        <m.span
+          style={{
+            width: '32px',
+            height: '2px',
+            background: 'var(--gradient-primary)',
+            borderRadius: '99px',
+          }}
+          initial={{ width: 0 }}
+          animate={inView ? { width: 32 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        />
+        <h4>{preTitle}</h4>
+        <m.span
+          style={{
+            width: '32px',
+            height: '2px',
+            background: 'var(--gradient-primary)',
+            borderRadius: '99px',
+          }}
+          initial={{ width: 0 }}
+          animate={inView ? { width: 32 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        />
+      </m.div>
 
+      {/* Main title with clip-path reveal & gradient */}
       <m.h2
-        initial={{ opacity: 0, y: 24, clipPath: 'inset(100% 0% 0% 0%)' }}
+        className="gradient-text"
+        initial={{ opacity: 0, y: 30, clipPath: 'inset(100% 0% 0% 0%)' }}
         animate={inView ? { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)' } : {}}
-        transition={{ duration: 0.65, ease: [0.25, 0.4, 0.25, 1], delay: 0.08 }}
+        transition={{ duration: 0.75, ease: [0.25, 0.4, 0.25, 1], delay: 0.1 }}
+        style={{
+          backgroundSize: '200% 200%',
+          animation: 'gradient-shift 6s ease infinite',
+        }}
       >
         {title}
       </m.h2>
 
+      {/* Subtitle */}
       <m.p
         className="subtitle"
         initial={{ opacity: 0, y: 16 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.55, ease: [0.25, 0.4, 0.25, 1], delay: 0.18 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1], delay: 0.25 }}
       >
         {subTitle}
       </m.p>

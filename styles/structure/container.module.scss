@@ -15,6 +15,14 @@
 	flex-direction: column;
 }
 
+@include media($max: $tablet, $min: $mobile) {
+	.readingWidth {
+		width: calc(100% - 3rem);
+		margin-left: 1.5rem;
+		margin-right: 1.5rem;
+	}
+}
+
 @include media($max: $mobile) {
 	.readingWidth {
 		width: calc(100% - 2rem);

@@ -1,13 +1,12 @@
-$badgeText: 	--primary;
-$border: 		--primary-dark;
-$background: 	--background-dim2;
-
+$badgeText: --primary;
+$border: --primary-dark;
+$background: --background-dim2;
 
 @import 'styles/scss/mixins';
 
-.badgeBlockContainer{
+.badgeBlockContainer {
 	&:not(:last-of-type) {
-		margin-bottom: var(--size-4x);
+		margin-bottom: 0;
 	}
 }
 
@@ -17,8 +16,8 @@ $background: 	--background-dim2;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	gap: var(--size-2-);
-	row-gap: var(--size-2-);
+	gap: 0.5rem;
+	row-gap: 0.5rem;
 	font-family: var(--font-accent);
 	font-weight: 600;
 	font-size: var(--font-xs);
@@ -31,11 +30,11 @@ $background: 	--background-dim2;
 		overflow: hidden;
 		align-items: center;
 		border-radius: 9rem;
-		@include buttonPadding( var(--size-3-) );
+		@include buttonPadding(var(--size-3-));
 		text-transform: uppercase;
-
 		color: var(--primary-dim);
-		
+		transition: all 0.3s ease;
+
 		i, svg {
 			display: flex;
 			justify-content: center;
@@ -48,7 +47,7 @@ $background: 	--background-dim2;
 				color: var(--icon-bright);
 			}
 		}
-		
+
 		svg {
 			height: calc(1rem - 0.2rem);
 			padding: 0.1rem;
@@ -62,7 +61,7 @@ $background: 	--background-dim2;
 			flex-grow: 1;
 			text-align: center;
 		}
-		
+
 		&:before {
 			content: '';
 			position: absolute;
@@ -71,11 +70,12 @@ $background: 	--background-dim2;
 			height: 100%;
 			width: 100%;
 			z-index: 1;
-			border: 1px solid var(--primary-dim);
+			border: 1px solid var(--glass-border);
 			border-radius: 9rem;
-			opacity: 10%;
+			opacity: 60%;
+			transition: opacity 0.3s ease;
 		}
-		
+
 		&:after {
 			content: '';
 			position: absolute;
@@ -84,25 +84,35 @@ $background: 	--background-dim2;
 			height: 100%;
 			width: 100%;
 			z-index: -1;
-			background: var($background);
+			background: var(--background-dim2);
 			opacity: 100%;
 		}
+
+		&:hover {
+			color: var(--secondary);
+			transform: translateY(-2px);
+
+			&:before {
+				border-color: var(--secondary);
+				opacity: 30%;
+			}
+		}
 	}
-	
+
 	&.methods {
 		.item {
 			padding: .5rem 1rem;
 			font-size: .9rem;
 			font-weight: 600;
-			border-radius: .5rem;
+			border-radius: .75rem;
 			width: calc(50% - 0.25rem);
 			text-transform: capitalize;
-			
+
 			&:before,
 			&:after {
 				border-radius: inherit;
 			}
-			
+
 			svg {
 				height: 1.4375rem;
 				margin-right: 1rem;
@@ -128,16 +138,16 @@ $background: 	--background-dim2;
 			svg {
 				color: var(--background);
 			}
-		}	
+		}
 	}
 }
 
 .fullContainer {
-	border-top: 1px solid var(--primary-dark);
-	background: var(--background-dim);
-	margin-left: calc( var(--padding-left) * -1 );
-	margin-right: calc( var(--padding-right) * -1 );
-	margin-bottom: calc( var(--padding-bottom) * -1 );
+	border-top: 1px solid var(--glass-border);
+	background: var(--gradient-subtle);
+	margin-left: calc(var(--padding-left) * -1);
+	margin-right: calc(var(--padding-right) * -1);
+	margin-bottom: calc(var(--padding-bottom) * -1);
 	padding: var(--padding);
 	padding-left: var(--padding-left);
 	padding-top: var(--padding-top, 1rem);

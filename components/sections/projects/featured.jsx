@@ -2,7 +2,6 @@ import { m } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import FeaturedProject from '../../blocks/projects/featured'
 
-// Section structure
 import Section from '../../structure/section'
 import Container from '../../structure/container'
 import SectionTitle from '../../blocks/section.title.block'
@@ -22,15 +21,15 @@ export default function FeaturedProjects() {
           subTitle="Projects I've built while learning computer science and development."
         />
 
-        <div ref={ref}>
+        <div ref={ref} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {content.map((data, index) => (
             <m.div
               key={index}
-              initial={{ opacity: 0, y: 60 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              initial={{ opacity: 0, y: 60, scale: 0.97 }}
+              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
               transition={{
-                duration: 0.75,
-                delay: index * 0.2,
+                duration: 0.9,
+                delay: index * 0.25,
                 ease: [0.25, 0.4, 0.25, 1],
               }}
             >

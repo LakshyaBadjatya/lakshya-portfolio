@@ -56,7 +56,7 @@ export function CustomCursor() {
           border: `2px solid ${hovered ? "var(--secondary)" : "var(--primary-dim)"}`,
           pointerEvents: "none", zIndex: 99998,
           opacity: visible ? 0.8 : 0, scale: clicked ? 0.75 : 1,
-          background: hovered ? "rgba(127,234,255,0.06)" : "transparent",
+          background: hovered ? "rgba(0,255,204,0.1)" : "transparent",
           mixBlendMode: "difference",
           transition: "width 0.2s, height 0.2s, border-color 0.2s, background 0.2s",
         }}
@@ -198,7 +198,7 @@ export function SpotlightSection({ children, className, style, ...props }) {
 
   const bg = useTransform(
     [mouseX, mouseY],
-    ([x, y]) => `radial-gradient(600px circle at ${x}px ${y}px, rgba(127,234,255,0.04), transparent 50%)`
+    ([x, y]) => `radial-gradient(600px circle at ${x}px ${y}px, rgba(0,255,204,0.07), transparent 50%)`
   )
 
   return (

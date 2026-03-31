@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion'
 import { Analytics } from '@vercel/analytics/react'
+import Lenis from 'lenis'
 
-import Preloader from '../components/layout/Preloader'
 import DynamicWatermark from '../components/utils/DynamicWatermark'
 import SetGridGap from '../components/utils/set.grid.util'
 import Layout from '../components/layout/layout'
@@ -21,6 +21,32 @@ import '../node_modules/devicon/devicon.min.css'
 
 import '../styles/css/variables.css'
 import '../styles/css/global.css'
+
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    y: 20,
+    scale: 0.98,
+    filter: 'blur(8px)',
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: 'blur(0px)',
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    scale: 0.98,
+    filter: 'blur(8px)',
+  },
+}
+
+const pageTransition = {
+  duration: 0.5,
+  ease: [0.25, 0.4, 0.25, 1],
+}
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
@@ -47,6 +73,23 @@ export default function MyApp({ Component, pageProps }) {
     }
   }, [])
 
+  // Smooth scroll
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    })
+
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+    requestAnimationFrame(raf)
+
+    return () => lenis.destroy()
+  }, [])
+
   useEffect(() => {
     const onVisibilityChange = () => {
       if (document.hidden) {
@@ -63,7 +106,6 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <LazyMotion features={domAnimation}>
-      {isHome && <Preloader />}
       <CustomCursor />
 
       <Layout>
@@ -71,10 +113,11 @@ export default function MyApp({ Component, pageProps }) {
         <AnimatePresence mode="wait" initial={false}>
           <m.div
             key={router.pathname}
-            initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, y: -12, filter: 'blur(4px)' }}
-            transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={pageTransition}
           >
             <Component {...pageProps} />
           </m.div>

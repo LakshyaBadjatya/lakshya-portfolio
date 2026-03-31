@@ -2,15 +2,16 @@
 
 .container {
 	.copyrightSymbol {
-	font-size: 1.4em;   // makes © bigger
-	font-weight: 700;
-	margin-right: 0.2rem;
-	vertical-align: middle;
-}
+		font-size: 1.4em;
+		font-weight: 700;
+		margin-right: 0.2rem;
+		vertical-align: middle;
+	}
+
 	display: flex;
 	flex-direction: column;
 	position: relative;
-	
+
 	> div {
 		display: flex;
 		flex-direction: column;
@@ -27,7 +28,7 @@
 		color: var(--primary);
 
 		&:hover {
-			color: var(--primary-bright);
+			color: var(--secondary);
 		}
 	}
 
@@ -56,7 +57,7 @@
 		}
 	}
 
-	/* ✅ CENTERED SOCIAL SECTION */
+	/* CENTERED SOCIAL SECTION */
 	.socialCenter {
 		display: flex;
 		flex-direction: column;
@@ -67,22 +68,22 @@
 	.socialList {
 		display: flex;
 		flex-direction: row;
-		gap: 1rem;
+		gap: 1.5rem;
 		justify-content: center;
 
 		svg {
 			height: 2rem;
+			transition: color 0.3s ease;
+		}
+
+		a:hover svg {
+			color: var(--secondary);
 		}
 	}
 
-	/**
-		Why the fuck isnt this working?
-
-		Get it working to get cool hover effect on steal this theme section!
-	**/
 	.svg-inline--fa.fa-code-branch {
 		margin-left: 1rem;
-		
+
 		.fa-secondary {
 			fill: #a371f7;
 			opacity: 1;
@@ -90,7 +91,6 @@
 	}
 
 	.github {
-
 		* {
 			font-size: 1rem;
 			font-family: var(--font-accent);
@@ -110,7 +110,7 @@
 			&:hover {
 				filter: grayscale(0);
 			}
-	
+
 			ul {
 				display: flex;
 				flex-direction: row;
@@ -125,19 +125,30 @@
 		.sections {
 			flex-direction: column;
 			text-align: center;
-			gap: 3rem;
+			gap: 2rem;
 
 			.socialList {
 				justify-content: center;
+				gap: 1.25rem;
+
+				svg {
+					height: 1.75rem;
+				}
 			}
+		}
+
+		> div {
+			gap: 1.5rem;
 		}
 	}
 }
+
 .rateMe {
   margin-top: 0.001rem;
   display: flex;
   justify-content: center;
 }
+
 .rateMeButton {
   background-color: var(--primary);
   color: white;
@@ -161,12 +172,12 @@
   margin-top: 0.1rem;
 
   h5 {
-    font-size: 0.9rem;        // smaller, professional
+    font-size: 0.85rem;
     font-weight: 500;
-    opacity: 0.7;             // subtle, not dominant
+    opacity: 0.5;
     letter-spacing: 0.04em;
     text-align: center;
     margin: 0;
+    font-family: var(--font-accent);
   }
 }
-

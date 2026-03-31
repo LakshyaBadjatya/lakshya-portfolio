@@ -10,10 +10,14 @@
 	flex-wrap: nowrap;
 	user-select: none;
 	overflow: hidden;
+	position: relative;
 
 	border-radius: 2rem;
-	background-color: var(--background-dim2);
-	border: 1px solid var(--primary-dark);
+	background: var(--background-dim2);
+	border: 1px solid var(--glass-border);
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	will-change: transform;
+	contain: layout style;
 
 	.viewProject svg {
 		@include transition;
@@ -25,10 +29,12 @@
 
 	&:hover {
 		cursor: pointer;
+		border-color: rgba(0, 255, 204, 0.22);
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px var(--card-glow);
 
 		.viewProject svg {
 			@include transition;
-			color: var(--neon-1-1);
+			color: var(--secondary);
 		}
 	}
 }
@@ -114,18 +120,18 @@
 		overflow: visible;
 		border-radius: 2rem;
 		height: calc(100% - 6rem);
-		width: 100%; /* FIXED */
+		width: 100%;
 		right: 0;
 		bottom: 11rem;
 
 		> div > div {
 			> span {
 				position: absolute !important;
-				right: 2rem; /* FIXED */
+				right: 2rem;
 				bottom: 0;
 
 				img {
-					width: 500px !important; /* FIXED */
+					width: 500px !important;
 				}
 			}
 		}
@@ -144,8 +150,8 @@
 	color: var(--primary-dim);
 	padding: .125rem .5rem;
 	border-radius: 99rem;
-	border: 1px solid var(--primary-dark);
-	background: var(--primary-dark);
+	border: 1px solid var(--glass-border);
+	background: var(--background-dim2);
 }
 
 .bgContainer {
@@ -236,11 +242,25 @@
 		}
 
 		@keyframes rotationFore {
-			0% {
-				transform: rotate(0deg);
-			}
-			100% {
-				transform: rotate(360deg);
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+	}
+}
+
+@include media($max: $tablet, $min: $mobile) {
+	.project {
+		border-radius: 1.5rem;
+
+		.details {
+			padding: 1.5rem;
+		}
+
+		.projectHeader {
+			gap: 1.5rem;
+
+			p {
+				font-size: 1.3rem;
 			}
 		}
 	}
@@ -248,12 +268,14 @@
 
 @include media($max: $mobile) {
 	.project {
+		border-radius: 1.25rem;
+
 		&:nth-of-type(n) {
 			flex-direction: column;
 
 			.details {
 				border-radius: 1rem;
-				padding: var(--size-2x);
+				padding: 1.25rem;
 			}
 
 			.imageContainer {
@@ -284,14 +306,14 @@
 			height: 100%;
 		}
 
-.cardLink {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
+		.cardLink {
+			display: block;
+			text-decoration: none;
+			color: inherit;
+		}
 
-.card {
-  cursor: pointer;
-}
+		.card {
+			cursor: pointer;
+		}
 	}
 }

@@ -18,20 +18,20 @@ import CopyBlock from '../../blocks/about.copy.block'
 import about from '../../../styles/sections/index/about.module.scss'
 
 export default function Technical() {
-  const { ref, inView } = useInView({ threshold: 0.15, triggerOnce: true })
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true })
 
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: (i) => ({
       opacity: 1, y: 0,
-      transition: { delay: i * 0.15, duration: 0.6, ease: [0.25, 0.4, 0.25, 1] },
+      transition: { delay: i * 0.18, duration: 0.7, ease: [0.25, 0.4, 0.25, 1] },
     }),
   }
 
   const svgVariant = {
-    hidden: { opacity: 0, x: 40, scale: 0.95 },
+    hidden: { opacity: 0, x: 50 },
     visible: {
-      opacity: 1, x: 0, scale: 1,
+      opacity: 1, x: 0,
       transition: { duration: 0.8, ease: [0.25, 0.4, 0.25, 1], delay: 0.3 },
     },
   }
@@ -52,6 +52,11 @@ export default function Technical() {
               initial="hidden"
               animate={inView ? 'visible' : 'hidden'}
               variants={fadeUp}
+              whileHover={{
+                y: -4,
+                boxShadow: '0 20px 50px rgba(0,0,0,0.15), 0 0 20px var(--card-glow)',
+                transition: { duration: 0.3 },
+              }}
             >
               <CopyBlock
                 title="Learning foundations"
@@ -67,6 +72,11 @@ export default function Technical() {
               initial="hidden"
               animate={inView ? 'visible' : 'hidden'}
               variants={fadeUp}
+              whileHover={{
+                y: -4,
+                boxShadow: '0 20px 50px rgba(0,0,0,0.15), 0 0 20px var(--card-glow)',
+                transition: { duration: 0.3 },
+              }}
             >
               <BadgesBlock
                 title="Tools & Software I use"
@@ -85,6 +95,11 @@ export default function Technical() {
               initial="hidden"
               animate={inView ? 'visible' : 'hidden'}
               variants={fadeUp}
+              whileHover={{
+                y: -4,
+                boxShadow: '0 20px 50px rgba(0,0,0,0.15), 0 0 20px var(--card-glow)',
+                transition: { duration: 0.3 },
+              }}
             >
               <BadgesBlock
                 title="Technologies I am learning"
@@ -104,7 +119,11 @@ export default function Technical() {
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}
             variants={svgVariant}
-            whileHover={{ scale: 1.03, rotate: 1.5, transition: { duration: 0.4, type: 'spring', stiffness: 200 } }}
+            whileHover={{
+              scale: 1.03,
+              rotate: 1.5,
+              transition: { duration: 0.4, type: 'spring', stiffness: 200 },
+            }}
           >
             <Image
               src="/img/dataism-24.svg"

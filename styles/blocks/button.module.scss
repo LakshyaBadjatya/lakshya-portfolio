@@ -1,22 +1,30 @@
 button {
-
 	&.primary {
-		background-color: var(--secondary);
+		background: var(--gradient-primary);
+		background-size: 200% 200%;
+		animation: gradient-shift 4s ease infinite;
 		color: var(--background);
+		font-weight: 700;
+		border: none;
 
-		&:hover {
-			background-color: var(--secondary-bright);
+		@keyframes gradient-shift {
+			0% { background-position: 0% 50%; }
+			50% { background-position: 100% 50%; }
+			100% { background-position: 0% 50%; }
 		}
 	}
 
 	&.secondary {
 		background-color: transparent;
-		border: 1px solid var(--primary-dark);
+		border: 1px solid var(--glass-border);
 		color: var(--primary);
+		backdrop-filter: blur(10px);
+		background: var(--glass-bg);
 
 		&:hover {
 			color: var(--primary-bright);
-			background-color: var(--primary-dark);
+			border-color: var(--secondary);
+			background: var(--gradient-subtle);
 		}
 	}
 }

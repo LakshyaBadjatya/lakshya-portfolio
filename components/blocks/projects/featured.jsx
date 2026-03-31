@@ -16,13 +16,12 @@ export default function FeaturedProject({ content }, index) {
 
 	const controls = useAnimation()
 	const { ref, inView } = useInView({
-		threshold: 0.25,
-		triggerOnce: false
+		threshold: 0.2,
+		triggerOnce: true
 	})
 
 	useEffect(() => {
 		if (inView) controls.start("visible")
-		if (!inView) controls.start("hidden")
 	}, [controls, inView])
 
 	return (
@@ -39,6 +38,23 @@ export default function FeaturedProject({ content }, index) {
 			onClick={() => window.open(url, "_blank")}
 			onKeyDown={(e) => e.key === "Enter" && window.open(url, "_blank")}
 		>
+			{/* Gradient border glow on hover */}
+			<m.div
+				style={{
+					position: 'absolute',
+					inset: -1,
+					borderRadius: 'inherit',
+					background: 'var(--gradient-primary)',
+					zIndex: -1,
+					opacity: 0,
+				}}
+				variants={{
+					rest: { opacity: 0 },
+					hover: { opacity: 0.15 },
+				}}
+				transition={{ duration: 0.4 }}
+			/>
+
 			<div className={css.details}>
 				<div className={css.projectHeader}>
 					<div className={css.header}>
@@ -64,8 +80,8 @@ export default function FeaturedProject({ content }, index) {
 
 					<m.div
 						className={css.viewProject}
-						whileHover={{ x: 8, scale: 1.1 }}
-						transition={{ duration: 0.2 }}
+						whileHover={{ x: 12, scale: 1.15 }}
+						transition={{ type: 'spring', stiffness: 300, damping: 15 }}
 					>
 						<Icon icon={['fad', 'arrow-right-to-bracket']} />
 					</m.div>
@@ -143,11 +159,11 @@ const item = {
 }
 
 const hoverLeft = {
-	rest: { x: 0, rotate: 0 },
-	hover: { x: -20, rotate: -2, transition: { duration: 0.4, ease: "easeOut" } }
+	rest: { x: 0, rotate: 0, scale: 1 },
+	hover: { x: -24, rotate: -3, scale: 1.02, transition: { duration: 0.5, ease: [0.25, 0.4, 0.25, 1] } }
 }
 
 const hoverRight = {
-	rest: { x: 0, rotate: 0 },
-	hover: { x: 20, rotate: 2, transition: { duration: 0.4, ease: "easeOut" } }
+	rest: { x: 0, rotate: 0, scale: 1 },
+	hover: { x: 24, rotate: 3, scale: 1.02, transition: { duration: 0.5, ease: [0.25, 0.4, 0.25, 1] } }
 }
