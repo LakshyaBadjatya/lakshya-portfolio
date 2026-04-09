@@ -49,6 +49,7 @@ export default function Navbar({ title }) {
     const path = router.pathname.toLowerCase()
     if (path === '/') return settings.name
     if (path.includes('projects')) return 'Projects'
+    if (path.includes('resume')) return 'Resume'
     if (path.includes('about')) return 'About Me'
     return settings.name
   }

@@ -3,6 +3,10 @@
 		"title": "Projects"
 	},
 	{
+		"url": "/resume",
+		"title": "Resume"
+	},
+	{
 		"url": "/aboutme",
 		"title": "About Me"
 	}]

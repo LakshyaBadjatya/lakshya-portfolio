@@ -4,7 +4,7 @@ import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion'
 import { Analytics } from '@vercel/analytics/react'
 import Lenis from 'lenis'
 
-import DynamicWatermark from '../components/utils/DynamicWatermark'
+
 import SetGridGap from '../components/utils/set.grid.util'
 import Layout from '../components/layout/layout'
 import { CustomCursor } from '../components/utils/MouseEffects'
@@ -109,7 +109,6 @@ export default function MyApp({ Component, pageProps }) {
       <CustomCursor />
 
       <Layout>
-        <DynamicWatermark />
         <AnimatePresence mode="wait" initial={false}>
           <m.div
             key={router.pathname}
