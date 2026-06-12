@@ -6,6 +6,7 @@ import { AdaptiveDpr, PerformanceMonitor } from '@react-three/drei'
 import CameraRig from './CameraRig'
 import Starfield from './Starfield'
 import Effects from './Effects'
+import HorizonPlanet from './HorizonPlanet'
 
 export default function Scene({ tier }) {
   const mouse = useRef({ x: 0, y: 0 })
@@ -34,7 +35,8 @@ export default function Scene({ tier }) {
         <CameraRig mouse={mouse} />
         <Starfield count={tier === 2 ? 5000 : 1800} size={0.45} color="#cfd8ff" />
         <Starfield count={tier === 2 ? 900 : 300} size={1.1} color="#6ee7ff" spin={-0.002} />
-        {/* Chapter set dressing mounts here in Tasks 6-11 */}
+        {/* Chapter set dressing */}
+        <HorizonPlanet />
         <Effects tier={tier} />
       </PerformanceMonitor>
       <AdaptiveDpr pixelated />
