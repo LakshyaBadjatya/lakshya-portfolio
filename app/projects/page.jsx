@@ -1,3 +1,11 @@
-export default function Projects() {
-  return <main className="flex min-h-screen items-center justify-center font-display text-2xl">Projects — under construction</main>
+import ProjectsContent from '@/components/pages/ProjectsContent'
+
+export const metadata = {
+  title: 'Projects',
+  description:
+    'Production apps shipped by Lakshya Badjatya: Sambhav Services, SamTechy, Flappy Bird, and this 3D portfolio.',
+}
+
+export default function ProjectsPage() {
+  return <ProjectsContent />
 }
