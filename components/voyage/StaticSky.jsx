@@ -20,7 +20,7 @@ const SHADOWS = lcgStars()
 
 export default function StaticSky() {
   return (
-    <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden bg-void">
+    <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden bg-void print:hidden">
       <div
         className="absolute inset-0"
         style={{
