@@ -3,9 +3,11 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { glowTexture } from '@/lib/glow'
 
-export default function Starfield({ count = 4000, size = 0.5, color = '#cfd8ff', spin = 0.004, depth = 540 }) {
+export default function Starfield({ count = 4000, size = 0.65, color = '#cfd8ff', spin = 0.004, depth = 540 }) {
   const ref = useRef()
+  const tex = useMemo(() => glowTexture(), [])
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3)
     let seed = count // deterministic per-layer
@@ -31,11 +33,12 @@ export default function Starfield({ count = 4000, size = 0.5, color = '#cfd8ff',
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
+        map={tex}
         size={size}
         sizeAttenuation
         color={color}
         transparent
-        opacity={0.85}
+        opacity={1}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
       />
