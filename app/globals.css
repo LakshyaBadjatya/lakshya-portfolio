@@ -35,6 +35,14 @@ body {
   -webkit-backdrop-filter: blur(14px);
 }
 
+/* Higher-contrast glass for cards that sit directly over the 3D scene. */
+.glass-deep {
+  background: rgba(8, 10, 24, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
 .gradient-text {
   background: linear-gradient(120deg, #e8ecff 0%, #6ee7ff 45%, #a78bfa 85%);
   -webkit-background-clip: text;
@@ -50,7 +58,7 @@ body {
 @media print {
   nav, footer, .no-print { display: none !important; }
   body { background: #fff !important; color: #111 !important; }
-  .glass { background: #fff !important; border: 1px solid #ddd !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+  .glass, .glass-deep { background: #fff !important; border: 1px solid #ddd !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
   .gradient-text { color: #111 !important; background: none !important; -webkit-text-fill-color: #111 !important; }
   .text-dim { color: #374151 !important; }
   main { padding-top: 0 !important; }

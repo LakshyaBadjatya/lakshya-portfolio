@@ -50,19 +50,24 @@ const FORMS = { sambhav: Ringed, samtechy: Smooth, flappy: LowPoly, portfolio: W
 const OFFSETS = [
   [-10, 1, 4],
   [11, -2, -14],
-  [-11, 3, -32],
+  [-15, 5, -34], // kept wide of the camera path so the fly-by never clips the lens
   [10, 0, -50],
 ]
 
-export default function ProjectWorlds() {
+export default function ProjectWorlds({ tier = 2 }) {
+  // On phones the narrow FOV pulls the bodies toward the center of the frame,
+  // colliding with card text — shrink and push them deeper.
+  const scale = tier === 1 ? 0.6 : 1
+  const dz = tier === 1 ? -8 : 0
   return (
     <group>
       <pointLight position={posOf('worlds', 0, 18, -20)} intensity={400} color="#ffffff" />
       {profile.projects.map((p, i) => {
         const Form = FORMS[p.id]
+        const [ox, oy, oz] = OFFSETS[i]
         return (
           <Float key={p.id} speed={1.4} rotationIntensity={0.5} floatIntensity={0.9}>
-            <group position={posOf('worlds', ...OFFSETS[i])}>
+            <group position={posOf('worlds', ox, oy, oz + dz)} scale={scale}>
               <Form accent={p.accent} />
             </group>
           </Float>

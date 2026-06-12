@@ -24,7 +24,14 @@ export default function Nebula({ center, count = 8, spread = 38, baseScale = 30 
   }, [center, count, spread, baseScale])
 
   useFrame((state) => {
-    if (group.current) group.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.05) * 0.1
+    if (!group.current) return
+    const t = state.clock.elapsedTime
+    group.current.rotation.z = Math.sin(t * 0.05) * 0.1
+    // Slow "breathing" so the gas never reads as a static texture.
+    group.current.children.forEach((sprite, i) => {
+      const base = puffs[i]?.opacity ?? 0.1
+      sprite.material.opacity = base * (0.8 + 0.25 * Math.sin(t * 0.4 + i * 1.7))
+    })
   })
 
   return (

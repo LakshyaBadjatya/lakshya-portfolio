@@ -2,6 +2,7 @@
 
 import StaticSky from '@/components/voyage/StaticSky'
 import Reveal from '@/components/ui/Reveal'
+import TiltCard from '@/components/ui/TiltCard'
 import { profile } from '@/content/profile'
 
 export default function ProjectsContent() {
@@ -22,7 +23,7 @@ export default function ProjectsContent() {
         <div className="space-y-10">
           {profile.projects.map((p, i) => (
             <Reveal key={p.id} delay={i * 0.05}>
-              <article className="glass rounded-3xl p-8 md:p-10" style={{ boxShadow: `0 0 0 1px ${p.accent}22` }}>
+              <TiltCard max={3} className="glass rounded-3xl p-8 md:p-10" style={{ boxShadow: `0 0 0 1px ${p.accent}22` }}>
                 <div className="flex flex-wrap items-center gap-4">
                   <span className="font-mono text-sm text-dim">0{i + 1}</span>
                   <h2 className="font-display text-3xl font-bold md:text-4xl">{p.name}</h2>
@@ -63,7 +64,7 @@ export default function ProjectsContent() {
                     </a>
                   ))}
                 </div>
-              </article>
+              </TiltCard>
             </Reveal>
           ))}
         </div>

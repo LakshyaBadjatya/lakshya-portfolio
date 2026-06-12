@@ -12,7 +12,7 @@ export default function Systems() {
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {profile.skills.map((skill, i) => (
           <Reveal key={skill.category} delay={i * 0.08}>
-            <article className="glass h-full rounded-2xl p-6">
+            <article className="glass-deep h-full rounded-2xl p-6">
               <div className="mb-4 flex items-center gap-2.5">
                 <span className="h-2.5 w-2.5 rounded-full" style={{ background: skill.color, boxShadow: `0 0 10px ${skill.color}` }} />
                 <h3 className="font-display text-base font-bold" style={{ color: skill.color }}>

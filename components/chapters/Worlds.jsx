@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Chapter from './Chapter'
 import SectionLabel from '@/components/ui/SectionLabel'
+import TiltCard from '@/components/ui/TiltCard'
 import { profile } from '@/content/profile'
 
 export default function Worlds() {
@@ -13,13 +14,16 @@ export default function Worlds() {
         {profile.projects.map((p, i) => (
           <motion.article
             key={p.id}
-            initial={{ opacity: 0, y: 70, rotateX: 6 }}
-            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+            initial={{ opacity: 0, y: 70 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-15%' }}
             transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-            className={`glass w-full max-w-xl rounded-3xl p-7 md:p-9 ${i % 2 ? 'self-end' : 'self-start'}`}
-            style={{ boxShadow: `0 24px 80px rgba(0,0,0,0.45), 0 0 0 1px ${p.accent}22` }}
+            className={`w-full max-w-xl ${i % 2 ? 'self-end' : 'self-start'}`}
           >
+            <TiltCard
+              className="glass-deep group rounded-3xl p-7 transition-shadow duration-300 md:p-9"
+              style={{ boxShadow: `0 24px 80px rgba(0,0,0,0.45), 0 0 0 1px ${p.accent}22` }}
+            >
             <div className="mb-3 flex items-center gap-3">
               <span className="font-mono text-xs text-dim">0{i + 1}</span>
               <span
@@ -52,6 +56,7 @@ export default function Worlds() {
                 </a>
               ))}
             </div>
+            </TiltCard>
           </motion.article>
         ))}
       </div>

@@ -15,7 +15,7 @@ export default function Pilot() {
       <div className="grid gap-6 md:grid-cols-3">
         {profile.story.panels.map((panel, i) => (
           <Reveal key={panel.code} delay={i * 0.12}>
-            <article className="glass relative h-full rounded-2xl p-6">
+            <article className="glass-deep relative h-full rounded-2xl p-6">
               <div className="absolute left-4 top-0 h-px w-10 bg-cyan/60" />
               <div className="mb-4 font-mono text-[11px] tracking-[0.25em] text-cyan/80">{panel.code}</div>
               <h3 className="font-display text-xl font-bold">{panel.title}</h3>

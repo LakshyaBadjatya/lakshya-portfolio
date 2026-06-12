@@ -18,16 +18,30 @@ export default function Launch() {
         {profile.statusBadge}
       </motion.div>
 
-      <motion.h1
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.35, ease: [0.25, 0.4, 0.25, 1] }}
+      <h1
+        aria-label={profile.name}
         className="gradient-text font-display text-6xl font-bold leading-[1.02] tracking-tight md:text-8xl lg:text-9xl"
       >
-        {profile.name.split(' ')[0]}
-        <br />
-        {profile.name.split(' ')[1]}
-      </motion.h1>
+        {profile.name.split(' ').map((word, w) => (
+          <span key={word} className="block" aria-hidden>
+            {word.split('').map((ch, i) => (
+              <motion.span
+                key={i}
+                className="inline-block"
+                initial={{ opacity: 0, y: 60, rotateX: -55 }}
+                animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{
+                  delay: 0.35 + (w * 8 + i) * 0.04,
+                  duration: 0.7,
+                  ease: [0.25, 0.4, 0.25, 1],
+                }}
+              >
+                {ch}
+              </motion.span>
+            ))}
+          </span>
+        ))}
+      </h1>
 
       <motion.div
         initial={{ opacity: 0 }}
