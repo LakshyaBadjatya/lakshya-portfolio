@@ -8,6 +8,7 @@ import Starfield from './Starfield'
 import Effects from './Effects'
 import HorizonPlanet from './HorizonPlanet'
 import Nebula from './Nebula'
+import Constellation from './Constellation'
 import { posOf } from '@/lib/chapters'
 
 export default function Scene({ tier }) {
@@ -40,6 +41,7 @@ export default function Scene({ tier }) {
         {/* Chapter set dressing */}
         <HorizonPlanet />
         <Nebula center={posOf('pilot', 0, 0, -18)} />
+        <Constellation />
         <Effects tier={tier} />
       </PerformanceMonitor>
       <AdaptiveDpr pixelated />
