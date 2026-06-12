@@ -1,5 +1,6 @@
 import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
+import { LenisProvider } from '@/lib/scroll'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
@@ -56,7 +57,7 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
-        {children}
+        <LenisProvider>{children}</LenisProvider>
         <Analytics />
       </body>
     </html>
