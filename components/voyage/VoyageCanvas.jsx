@@ -28,7 +28,8 @@ export default function VoyageCanvas() {
   return (
     <CanvasBoundary>
       <StaticSky />
-      <div className="pointer-events-none fixed inset-0 -z-10">
+      {/* pointer-events stay enabled so 3D bodies are clickable; DOM content sits above and wins. */}
+      <div className="fixed inset-0 -z-10">
         <Scene tier={tier} />
       </div>
     </CanvasBoundary>

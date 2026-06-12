@@ -1,5 +1,6 @@
 import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { LenisProvider } from '@/lib/scroll'
 import Navbar from '@/components/ui/Navbar'
 import Footer from '@/components/ui/Footer'
@@ -65,6 +66,7 @@ export default function RootLayout({ children }) {
         <LenisProvider>{children}</LenisProvider>
         <Footer />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

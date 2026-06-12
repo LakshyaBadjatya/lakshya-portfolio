@@ -29,12 +29,21 @@ export default function ResumeContent() {
               Class 12 PCM student from Kota, India with a passion for building production-grade applications.
               Aspiring to study Computer Science internationally, Fall 2027.
             </p>
-            <button
-              onClick={() => window.print()}
-              className="no-print mt-6 rounded-full border border-cyan/40 bg-cyan/10 px-6 py-2 font-mono text-sm text-cyan transition-colors hover:bg-cyan/20"
-            >
-              Print / Save as PDF
-            </button>
+            <div className="no-print mt-6 flex flex-wrap justify-center gap-3">
+              <a
+                href="/Lakshya_Badjatya_Resume.pdf"
+                download
+                className="rounded-full bg-cyan px-6 py-2 font-mono text-sm font-semibold text-void transition-shadow hover:shadow-[0_0_24px_#6ee7ff55]"
+              >
+                Download PDF ↓
+              </a>
+              <button
+                onClick={() => window.print()}
+                className="rounded-full border border-cyan/40 bg-cyan/10 px-6 py-2 font-mono text-sm text-cyan transition-colors hover:bg-cyan/20"
+              >
+                Print
+              </button>
+            </div>
           </Reveal>
         </header>
 

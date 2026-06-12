@@ -71,6 +71,25 @@ export default function AboutContent() {
           </div>
         </section>
 
+        <section className="mb-20">
+          <SectionLabel pre="Current Trajectory" title="Now" />
+          <Reveal>
+            <div className="glass rounded-3xl p-7 md:p-8">
+              <div className="mb-5 font-mono text-[11px] uppercase tracking-[0.25em] text-dim">
+                updated {profile.now.updated}
+              </div>
+              <ul className="space-y-4">
+                {profile.now.items.map((n) => (
+                  <li key={n.text} className="flex items-start gap-3">
+                    <span className="text-xl">{n.icon}</span>
+                    <span className="leading-relaxed text-star/90">{n.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        </section>
+
         {quotes.length > 0 && (
           <Reveal>
             <section className="glass rounded-3xl p-10 text-center">

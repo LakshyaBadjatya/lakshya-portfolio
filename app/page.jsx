@@ -1,5 +1,6 @@
 import VoyageCanvas from '@/components/voyage/VoyageCanvas'
 import BootOverlay from '@/components/ui/BootOverlay'
+import EasterEgg from '@/components/ui/EasterEgg'
 import Hud from '@/components/ui/Hud'
 import Launch from '@/components/chapters/Launch'
 import Pilot from '@/components/chapters/Pilot'
@@ -15,6 +16,7 @@ export default function Home() {
       <BootOverlay />
       <VoyageCanvas />
       <Hud />
+      <EasterEgg />
       <main className="relative z-10 pt-14">
         <Launch />
         <Pilot />

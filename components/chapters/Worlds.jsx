@@ -14,6 +14,7 @@ export default function Worlds() {
         {profile.projects.map((p, i) => (
           <motion.article
             key={p.id}
+            id={`project-${p.id}`}
             initial={{ opacity: 0, y: 70 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-15%' }}

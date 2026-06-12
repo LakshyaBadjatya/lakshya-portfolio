@@ -11,6 +11,7 @@ import Nebula from './Nebula'
 import Constellation from './Constellation'
 import ProjectWorlds from './ProjectWorlds'
 import ShootingStars from './ShootingStars'
+import WarpStreaks from './WarpStreaks'
 import SkillRings from './SkillRings'
 import DestinationPlanet from './DestinationPlanet'
 import { posOf } from '@/lib/chapters'
@@ -49,6 +50,7 @@ export default function Scene({ tier }) {
         <ProjectWorlds tier={tier} />
         <SkillRings />
         <ShootingStars />
+        <WarpStreaks />
         <DestinationPlanet />
         <Nebula center={posOf('destination', 0, 6, -10)} count={6} />
         <Effects tier={tier} />

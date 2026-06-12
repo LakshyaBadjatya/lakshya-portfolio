@@ -148,6 +148,16 @@ export const profile = {
     { category: 'DevOps & Tools', color: '#10b981', tags: ['Git', 'GitHub', 'Codemagic CI/CD', 'VS Code', 'Figma', 'Postman', 'RCON'] },
   ],
 
+  now: {
+    updated: 'June 2026',
+    items: [
+      { icon: '🎓', text: 'Class 12 PCM — Physics, Chemistry, and Mathematics coursework' },
+      { icon: '📚', text: 'Preparing for IELTS, targeting Fall 2027 international CS admissions' },
+      { icon: '🛠️', text: 'Evolving this 3D portfolio — a scroll-driven WebGL voyage built with React Three Fiber' },
+      { icon: '✍️', text: 'Writing developer articles for Medium and Dev.to' },
+    ],
+  },
+
   extras: [
     { icon: '🏸', title: 'Badminton', text: 'Regular player — builds discipline, focus, and a balanced routine.' },
     { icon: '✍️', title: 'Technical Writing', text: 'Publishes articles on Medium and Dev.to sharing learnings with the developer community.' },

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { scrollState } from '@/lib/scroll'
 import { SEGMENTS } from '@/lib/chapters'
+import { sound } from '@/lib/sound'
 
 const LABELS = {
   launch: 'Launch',
@@ -19,6 +20,8 @@ const LABELS = {
 export default function Hud() {
   const [active, setActive] = useState(0)
   const [pct, setPct] = useState(0)
+  const [snd, setSnd] = useState(false)
+  const activeRef = useRef(0)
   const barRef = useRef(null)
   const velRef = useRef(null)
 
@@ -27,6 +30,10 @@ export default function Hud() {
     const tick = () => {
       const p = scrollState.progress
       const seg = SEGMENTS.find((s) => p >= s.start && p < s.end) ?? SEGMENTS[SEGMENTS.length - 1]
+      if (seg.index !== activeRef.current) {
+        activeRef.current = seg.index
+        sound.blip(520) // soft ping when crossing into a new chapter
+      }
       setActive(seg.index)
       setPct(Math.round(p * 100))
       if (barRef.current) barRef.current.style.transform = `scaleX(${p})`
@@ -40,7 +47,33 @@ export default function Hud() {
     return () => cancelAnimationFrame(raf)
   }, [])
 
-  const jump = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  useEffect(() => {
+    // If sound was on last visit, re-arm it on the first user gesture
+    // (browsers require a gesture before audio can start).
+    if (!sound.prefersOn()) return
+    const once = () => {
+      sound.setEnabled(true)
+      setSnd(true)
+    }
+    window.addEventListener('pointerdown', once, { once: true })
+    return () => window.removeEventListener('pointerdown', once)
+  }, [])
+
+  const toggleSound = () => {
+    const next = !snd
+    setSnd(next)
+    sound.setEnabled(next)
+    if (next) sound.blip(880)
+  }
+
+  const jump = (id) => {
+    sound.blip(740)
+    const el = document.getElementById(id)
+    if (!el) return
+    // A long Lenis glide builds enough velocity to trigger the warp streaks.
+    if (scrollState.lenis) scrollState.lenis.scrollTo(el, { duration: 1.5 })
+    else el.scrollIntoView()
+  }
 
   return (
     <div className="no-print">
@@ -96,15 +129,22 @@ export default function Hud() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.7, duration: 0.8 }}
         className="glass-deep fixed bottom-5 left-5 z-40 hidden select-none rounded-lg px-4 py-2.5 font-mono text-[10px] leading-relaxed tracking-[0.15em] text-cyan/80 md:block"
-        aria-hidden
       >
         <div className="flex items-center gap-2">
           <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-cyan" />
-          CH 0{active + 1} <span className="text-cyan/40">//</span> {LABELS[SEGMENTS[active].id].toUpperCase()}
+          CH 0{active + 1} <span className="text-cyan/40">{'//'}</span> {LABELS[SEGMENTS[active].id].toUpperCase()}
         </div>
         <div className="mt-0.5 text-dim">
           PROGRESS {String(pct).padStart(3, '0')}% · VEL <span ref={velRef}>00.0</span>
         </div>
+        <button
+          onClick={toggleSound}
+          aria-pressed={snd}
+          className="mt-1.5 flex cursor-pointer items-center gap-1.5 text-[10px] tracking-[0.2em] text-dim transition-colors hover:text-cyan"
+        >
+          <span className={`inline-block h-1 w-1 rounded-full ${snd ? 'bg-cyan shadow-[0_0_6px_#6ee7ff]' : 'bg-white/30'}`} />
+          SND {snd ? 'ON' : 'OFF'}
+        </button>
       </motion.div>
     </div>
   )

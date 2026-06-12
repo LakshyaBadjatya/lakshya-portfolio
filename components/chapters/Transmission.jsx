@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Chapter from './Chapter'
+import ContactForm from '@/components/ui/ContactForm'
 import Reveal from '@/components/ui/Reveal'
 import Magnetic from '@/components/ui/Magnetic'
 import { profile } from '@/content/profile'
@@ -36,6 +37,15 @@ export default function Transmission() {
           <Link href="/resume" className="text-dim transition-colors hover:text-cyan">
             Resume →
           </Link>
+        </div>
+      </Reveal>
+      <Reveal delay={0.25} className="mt-14 w-full max-w-lg">
+        <div className="glass-deep rounded-3xl p-6 text-left md:p-8">
+          <div className="mb-5 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.3em] text-cyan">
+            <span className="inline-block h-px w-6 bg-cyan/60" />
+            Direct transmission
+          </div>
+          <ContactForm />
         </div>
       </Reveal>
     </Chapter>

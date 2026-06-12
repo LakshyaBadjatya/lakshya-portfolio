@@ -24,6 +24,12 @@ export default function CameraRig({ mouse }) {
     lookTmp.current.set(look[0] + mouse.current.x * 2, look[1] - mouse.current.y * 1.5, look[2])
     lookRef.current.lerp(lookTmp.current, k)
     state.camera.lookAt(lookRef.current)
+
+    // Warp FOV kick: fast travel widens the lens for a sense of speed.
+    const speed = Math.min(1, Math.abs(scrollState.velocity) / 45)
+    const targetFov = 60 + speed * 14
+    state.camera.fov += (targetFov - state.camera.fov) * k
+    state.camera.updateProjectionMatrix()
   })
 
   return null
