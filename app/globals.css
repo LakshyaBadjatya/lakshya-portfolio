@@ -28,9 +28,6 @@ body {
   background: rgba(110, 231, 255, 0.35);
 }
 
-.font-display { font-family: var(--font-display); }
-.font-mono { font-family: var(--font-mono); }
-
 .glass {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.09);
@@ -53,7 +50,7 @@ body {
 @media print {
   nav, footer, .no-print { display: none !important; }
   body { background: #fff !important; color: #111 !important; }
-  .glass { background: #fff !important; border: 1px solid #ddd !important; backdrop-filter: none !important; }
+  .glass { background: #fff !important; border: 1px solid #ddd !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
   .gradient-text { color: #111 !important; background: none !important; -webkit-text-fill-color: #111 !important; }
   main { padding-top: 0 !important; }
 }

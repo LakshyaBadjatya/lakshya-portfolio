@@ -39,7 +39,7 @@ const personSchema = {
   '@type': 'Person',
   name: 'Lakshya Badjatya',
   url: 'https://sukhma.in',
-  email: 'mailto:lakshyabadjatya@gmail.com',
+  email: 'lakshyabadjatya@gmail.com',
   sameAs: [
     'https://github.com/LakshyaBadjatya',
     'https://www.linkedin.com/in/lakshya-badjatya-a12a77399/',
