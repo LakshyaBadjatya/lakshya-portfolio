@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #050510;
+  --color-space: #0b0b22;
+  --color-star: #e8ecff;
+  --color-cyan: #6ee7ff;
+  --color-violet: #a78bfa;
+  --color-magenta: #f472b6;
+  --color-dim: #8b93b8;
+  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-star);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(110, 231, 255, 0.35);
+}
+
+.font-display { font-family: var(--font-display); }
+.font-mono { font-family: var(--font-mono); }
+
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.gradient-text {
+  background: linear-gradient(120deg, #e8ecff 0%, #6ee7ff 45%, #a78bfa 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Custom cursor is rendered by components/ui/Cursor.jsx; hide native only on fine pointers */
+@media (pointer: fine) {
+  .cursor-active, .cursor-active a, .cursor-active button { cursor: none; }
+}
+
+@media print {
+  nav, footer, .no-print { display: none !important; }
+  body { background: #fff !important; color: #111 !important; }
+  .glass { background: #fff !important; border: 1px solid #ddd !important; backdrop-filter: none !important; }
+  .gradient-text { color: #111 !important; background: none !important; -webkit-text-fill-color: #111 !important; }
+  main { padding-top: 0 !important; }
+}
