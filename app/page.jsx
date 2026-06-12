@@ -1,3 +1,17 @@
+import VoyageCanvas from '@/components/voyage/VoyageCanvas'
+import { CHAPTERS } from '@/lib/chapters'
+
 export default function Home() {
-  return <main className="flex min-h-screen items-center justify-center font-display text-2xl">Voyage — under construction</main>
+  return (
+    <>
+      <VoyageCanvas />
+      <main className="relative z-10">
+        {CHAPTERS.map((c) => (
+          <section key={c.id} id={c.id} style={{ minHeight: `${c.weight * 100}vh` }} className="flex items-center justify-center">
+            <span className="font-mono text-dim/40">{c.id}</span>
+          </section>
+        ))}
+      </main>
+    </>
+  )
 }
