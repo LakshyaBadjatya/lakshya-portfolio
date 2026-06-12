@@ -7,37 +7,61 @@ import { posOf } from '@/lib/chapters'
 import { scrollState } from '@/lib/scroll'
 import { sound } from '@/lib/sound'
 import { profile } from '@/content/profile'
+import TerrainPlanet from './TerrainPlanet'
+import GasGiant from './GasGiant'
 
-function Ringed({ accent }) {
+function Ringed() {
   return (
     <group>
-      <mesh>
-        <sphereGeometry args={[3.2, 40, 40]} />
-        <meshStandardMaterial color="#101638" emissive={accent} emissiveIntensity={0.5} roughness={0.6} />
-      </mesh>
+      <TerrainPlanet
+        radius={3.2}
+        amplitude={0.07}
+        frequency={2.8}
+        seed={6.1}
+        sea={-0.02}
+        palette={['#150d33', '#2a2160', '#5b4a9a', '#d9ccff']}
+        atmosphere="#a78bfa"
+        atmosphereScale={1.15}
+        spin={0.06}
+        segments={72}
+      />
       <mesh rotation={[Math.PI / 2.6, 0, 0]}>
         <torusGeometry args={[5.2, 0.14, 8, 80]} />
-        <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={1.4} />
+        <meshStandardMaterial color="#a78bfa" emissive="#a78bfa" emissiveIntensity={1.4} />
       </mesh>
     </group>
   )
 }
 
-function Smooth({ accent }) {
+function Smooth() {
   return (
-    <mesh>
-      <sphereGeometry args={[3.4, 48, 48]} />
-      <meshStandardMaterial color="#161030" emissive={accent} emissiveIntensity={0.55} roughness={0.4} metalness={0.3} />
-    </mesh>
+    <GasGiant
+      radius={3.4}
+      seed={4.4}
+      bands={9.0}
+      palette={['#0e4a6e', '#27aede', '#d8f4ff']}
+      atmosphere="#7fe3ff"
+      spin={0.07}
+      segments={64}
+    />
   )
 }
 
-function LowPoly({ accent }) {
+function LowPoly() {
+  // A cratered desert rock — Lakshya's first world.
   return (
-    <mesh>
-      <icosahedronGeometry args={[3.2, 0]} />
-      <meshStandardMaterial color="#1c1408" emissive={accent} emissiveIntensity={0.5} flatShading roughness={0.8} />
-    </mesh>
+    <TerrainPlanet
+      radius={3.1}
+      amplitude={0.11}
+      frequency={3.1}
+      seed={1.9}
+      sea={-2}
+      palette={['#2a1a06', '#553311', '#8a5a1f', '#f0c060']}
+      atmosphere="#f59e0b"
+      atmosphereScale={1.1}
+      spin={0.08}
+      segments={56}
+    />
   )
 }
 

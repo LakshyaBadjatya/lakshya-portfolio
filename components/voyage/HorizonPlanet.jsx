@@ -1,29 +1,25 @@
 'use client'
 
-import { useMemo, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
 import { posOf } from '@/lib/chapters'
-import { glowTexture } from '@/lib/glow'
+import TerrainPlanet from './TerrainPlanet'
 
-export default function HorizonPlanet() {
-  const ref = useRef()
-  const tex = useMemo(() => glowTexture(), [])
-  const position = posOf('launch', 0, -17, -34)
-
-  useFrame((_, dt) => {
-    if (ref.current) ref.current.rotation.y += dt * 0.02
-  })
-
+/** The home world below the launch pad — an ocean planet with drifting clouds. */
+export default function HorizonPlanet({ tier = 2 }) {
   return (
-    <group position={position}>
-      <sprite scale={[42, 42, 1]}>
-        <spriteMaterial map={tex} color="#3b5bd9" transparent opacity={0.5} depthWrite={false} />
-      </sprite>
-      <mesh ref={ref}>
-        <sphereGeometry args={[13, 48, 48]} />
-        <meshStandardMaterial color="#0d1440" emissive="#27408f" emissiveIntensity={0.35} roughness={0.85} />
-      </mesh>
-      <pointLight position={[18, 14, 14]} intensity={140} color="#6ee7ff" />
+    <group position={posOf('launch', 0, -17, -34)}>
+      <TerrainPlanet
+        radius={13}
+        amplitude={0.045}
+        frequency={2.1}
+        seed={3.7}
+        sea={0.04}
+        palette={['#06203f', '#0f4d7a', '#2f7a52', '#d8e4e4']}
+        atmosphere="#6ee7ff"
+        atmosphereScale={1.14}
+        spin={0.015}
+        segments={tier === 2 ? 128 : 72}
+        clouds={tier === 2}
+      />
     </group>
   )
 }

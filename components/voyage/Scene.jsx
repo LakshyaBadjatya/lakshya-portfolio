@@ -9,9 +9,11 @@ import Effects from './Effects'
 import HorizonPlanet from './HorizonPlanet'
 import Nebula from './Nebula'
 import Constellation from './Constellation'
+import BrightStars from './BrightStars'
 import ProjectWorlds from './ProjectWorlds'
 import ShootingStars from './ShootingStars'
 import WarpStreaks from './WarpStreaks'
+import { SUN_DIR } from '@/lib/glsl'
 import SkillRings from './SkillRings'
 import DestinationPlanet from './DestinationPlanet'
 import { posOf } from '@/lib/chapters'
@@ -39,19 +41,22 @@ export default function Scene({ tier }) {
       <color attach="background" args={['#050510']} />
       <fog attach="fog" args={['#050510', 70, 340]} />
       <ambientLight intensity={0.25} />
+      {/* The system's sun — matches the planets' shader light direction. */}
+      <directionalLight position={[SUN_DIR[0] * 100, SUN_DIR[1] * 100, SUN_DIR[2] * 100]} intensity={2.2} color="#fff4e0" />
       <PerformanceMonitor onDecline={() => setDegraded(true)}>
         <CameraRig mouse={mouse} />
         <Starfield count={tier === 2 ? 5000 : 1800} size={0.45} color="#cfd8ff" />
         <Starfield count={tier === 2 ? 900 : 300} size={1.1} color="#6ee7ff" spin={-0.002} />
+        <BrightStars />
         {/* Chapter set dressing */}
-        <HorizonPlanet />
+        <HorizonPlanet tier={tier} />
         <Nebula center={posOf('pilot', 0, 0, -18)} />
         <Constellation />
         <ProjectWorlds tier={tier} />
         <SkillRings />
         <ShootingStars />
         <WarpStreaks />
-        <DestinationPlanet />
+        <DestinationPlanet tier={tier} />
         <Nebula center={posOf('destination', 0, 6, -10)} count={6} />
         <Effects tier={tier} />
       </PerformanceMonitor>
