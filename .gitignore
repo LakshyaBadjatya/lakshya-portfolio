@@ -48,3 +48,8 @@ coverage/
 .env.development
 .env.production
 .vercel
+
+# ad-hoc verification screenshots
+/*.png
+/*.jpeg
+/*.jpg
