@@ -13,7 +13,7 @@ export const profile = {
   email: 'lakshyabadjatya@gmail.com',
   phone: '+91 8619690342',
   location: 'Kota, Rajasthan, India',
-  site: 'sukhma.in',
+  site: 'sukhma.in', // display text — not a URL; use socials[].href for links
 
   socials: [
     { label: 'GitHub', href: 'https://github.com/LakshyaBadjatya' },
@@ -86,7 +86,7 @@ export const profile = {
         'Built invoice lifecycle tracking (New → Packed → Delivered) with timeline history, cash book with running balance, and a 3-hour edit rule for staff entries.',
         'Features transport/courier company management, priority-based task reminders (Normal/Urgent), and persistent dark/light theme. Codebase spans 138 Dart files.',
       ],
-      links: [{ label: 'GitHub', href: 'https://github.com/LakshyaBadjatya' }],
+      links: [{ label: 'GitHub Profile', href: 'https://github.com/LakshyaBadjatya' }],
     },
     {
       id: 'samtechy',
@@ -102,7 +102,7 @@ export const profile = {
         'Implemented encrypted data storage for sensitive information, organization management, and client master data management with real-time sync.',
         'Deployed to Android and iOS with automated CI/CD pipelines using Codemagic. Supports Windows/macOS desktop from a single codebase.',
       ],
-      links: [{ label: 'GitHub', href: 'https://github.com/LakshyaBadjatya' }],
+      links: [{ label: 'GitHub Profile', href: 'https://github.com/LakshyaBadjatya' }],
     },
     {
       id: 'flappy',

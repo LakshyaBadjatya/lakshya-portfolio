@@ -1,4 +1,4 @@
-import { SEGMENTS, cameraTarget, localProgress, posOf, zOf } from '@/lib/chapters'
+import { CHAPTERS, SEGMENTS, cameraTarget, localProgress, posOf, zOf } from '@/lib/chapters'
 
 describe('chapter geometry', () => {
   test('7 chapters with contiguous scroll ranges', () => {
@@ -36,5 +36,23 @@ describe('chapter geometry', () => {
     const [x, y, z] = posOf('pilot', 1, 2, -3)
     const seg = SEGMENTS.find((s) => s.id === 'pilot')
     expect([x, y, z]).toEqual([seg.x + 1, seg.y + 2, seg.z - 3])
+  })
+
+  test('zOf returns spaced z per chapter index', () => {
+    expect(zOf('launch')).toBeCloseTo(0)
+    expect(zOf('transmission')).toBe(-420)
+  })
+
+  test('CHAPTERS exports 7 chapters with expected ids', () => {
+    expect(CHAPTERS.map((c) => c.id)).toEqual([
+      'launch', 'pilot', 'flightpath', 'worlds', 'systems', 'destination', 'transmission',
+    ])
+  })
+
+  test('camera pos and look are finite at boundaries', () => {
+    for (const p of [0, 0.5, 1]) {
+      const { pos, look } = cameraTarget(p)
+      for (const v of [...pos, ...look]) expect(Number.isFinite(v)).toBe(true)
+    }
   })
 })
