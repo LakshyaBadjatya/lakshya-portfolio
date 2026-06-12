@@ -20,7 +20,7 @@ export default function Cursor() {
     const move = (e) => {
       x.set(e.clientX)
       y.set(e.clientY)
-      setHot(!!e.target.closest('a, button, [data-hot]'))
+      setHot(!!(e.target?.closest?.('a, button, [data-hot]')))
     }
     window.addEventListener('pointermove', move, { passive: true })
     return () => {

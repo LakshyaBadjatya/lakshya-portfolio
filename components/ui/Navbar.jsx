@@ -31,6 +31,7 @@ export default function Navbar() {
               <Link
                 key={l.href}
                 href={l.href}
+                aria-current={active ? 'page' : undefined}
                 className={`relative rounded-full px-3 py-1.5 font-mono text-xs transition-colors sm:text-sm ${
                   active ? 'text-cyan' : 'text-dim hover:text-star'
                 }`}
