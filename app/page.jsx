@@ -3,6 +3,7 @@ import Launch from '@/components/chapters/Launch'
 import Pilot from '@/components/chapters/Pilot'
 import FlightPath from '@/components/chapters/FlightPath'
 import Worlds from '@/components/chapters/Worlds'
+import Systems from '@/components/chapters/Systems'
 import { CHAPTERS } from '@/lib/chapters'
 
 export default function Home() {
@@ -14,7 +15,8 @@ export default function Home() {
         <Pilot />
         <FlightPath />
         <Worlds />
-        {CHAPTERS.filter((c) => !['launch', 'pilot', 'flightpath', 'worlds'].includes(c.id)).map((c) => (
+        <Systems />
+        {CHAPTERS.filter((c) => !['launch', 'pilot', 'flightpath', 'worlds', 'systems'].includes(c.id)).map((c) => (
           <section key={c.id} id={c.id} style={{ minHeight: `${c.weight * 100}vh` }} className="flex items-center justify-center">
             <span className="font-mono text-dim/40">{c.id}</span>
           </section>
