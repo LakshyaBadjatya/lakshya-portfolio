@@ -7,6 +7,8 @@ import CameraRig from './CameraRig'
 import Starfield from './Starfield'
 import Effects from './Effects'
 import HorizonPlanet from './HorizonPlanet'
+import Nebula from './Nebula'
+import { posOf } from '@/lib/chapters'
 
 export default function Scene({ tier }) {
   const mouse = useRef({ x: 0, y: 0 })
@@ -37,6 +39,7 @@ export default function Scene({ tier }) {
         <Starfield count={tier === 2 ? 900 : 300} size={1.1} color="#6ee7ff" spin={-0.002} />
         {/* Chapter set dressing */}
         <HorizonPlanet />
+        <Nebula center={posOf('pilot', 0, 0, -18)} />
         <Effects tier={tier} />
       </PerformanceMonitor>
       <AdaptiveDpr pixelated />
