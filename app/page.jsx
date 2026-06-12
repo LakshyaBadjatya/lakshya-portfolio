@@ -4,23 +4,21 @@ import Pilot from '@/components/chapters/Pilot'
 import FlightPath from '@/components/chapters/FlightPath'
 import Worlds from '@/components/chapters/Worlds'
 import Systems from '@/components/chapters/Systems'
-import { CHAPTERS } from '@/lib/chapters'
+import Destination from '@/components/chapters/Destination'
+import Transmission from '@/components/chapters/Transmission'
 
 export default function Home() {
   return (
     <>
       <VoyageCanvas />
-      <main className="relative z-10">
+      <main className="relative z-10 pt-14">
         <Launch />
         <Pilot />
         <FlightPath />
         <Worlds />
         <Systems />
-        {CHAPTERS.filter((c) => !['launch', 'pilot', 'flightpath', 'worlds', 'systems'].includes(c.id)).map((c) => (
-          <section key={c.id} id={c.id} style={{ minHeight: `${c.weight * 100}vh` }} className="flex items-center justify-center">
-            <span className="font-mono text-dim/40">{c.id}</span>
-          </section>
-        ))}
+        <Destination />
+        <Transmission />
       </main>
     </>
   )

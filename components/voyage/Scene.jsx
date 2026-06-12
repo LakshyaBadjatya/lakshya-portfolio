@@ -11,6 +11,7 @@ import Nebula from './Nebula'
 import Constellation from './Constellation'
 import ProjectWorlds from './ProjectWorlds'
 import SkillRings from './SkillRings'
+import DestinationPlanet from './DestinationPlanet'
 import { posOf } from '@/lib/chapters'
 
 export default function Scene({ tier }) {
@@ -46,6 +47,8 @@ export default function Scene({ tier }) {
         <Constellation />
         <ProjectWorlds />
         <SkillRings />
+        <DestinationPlanet />
+        <Nebula center={posOf('destination', 0, 6, -10)} count={6} />
         <Effects tier={tier} />
       </PerformanceMonitor>
       <AdaptiveDpr pixelated />
