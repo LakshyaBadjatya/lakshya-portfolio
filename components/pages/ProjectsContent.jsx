@@ -1,11 +1,15 @@
 'use client'
 
+import { useState } from 'react'
 import StaticSky from '@/components/voyage/StaticSky'
 import Reveal from '@/components/ui/Reveal'
 import TiltCard from '@/components/ui/TiltCard'
+import HoloShot from '@/components/ui/HoloShot'
+import Lightbox from '@/components/ui/Lightbox'
 import { profile } from '@/content/profile'
 
 export default function ProjectsContent() {
+  const [active, setActive] = useState(null)
   return (
     <>
       <StaticSky />
@@ -34,6 +38,11 @@ export default function ProjectsContent() {
                     {p.type}
                   </span>
                 </div>
+                {p.media?.length > 0 && (
+                  <div className="mt-6">
+                    <HoloShot media={p.media} accent={p.accent} onOpen={() => setActive(p)} label={`Open ${p.name} screenshots`} priority={i === 0} />
+                  </div>
+                )}
                 <ul className="mt-6 space-y-3">
                   {p.bullets.map((b, j) => (
                     <li key={j} className="flex gap-3 leading-relaxed text-star/85">
@@ -69,6 +78,7 @@ export default function ProjectsContent() {
           ))}
         </div>
       </main>
+      {active && <Lightbox project={active} onClose={() => setActive(null)} />}
     </>
   )
 }

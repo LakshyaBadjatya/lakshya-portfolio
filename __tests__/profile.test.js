@@ -22,17 +22,25 @@ describe('profile content integrity (spec: Content Inventory)', () => {
     expect(profile.timeline.at(-1).year).toBe('2027')
   })
 
-  test('all 4 projects present with full data', () => {
-    const names = profile.projects.map((p) => p.name)
-    expect(names).toEqual(
-      expect.arrayContaining(['Sambhav Services App', 'SamTechy', 'Flappy Bird', 'Sukhma.in']),
-    )
+  test('every project has full, well-formed data + immersive media', () => {
+    expect(Array.isArray(profile.projects)).toBe(true)
     for (const p of profile.projects) {
+      expect(p.id).toBeTruthy()
       expect(p.summary.length).toBeGreaterThan(20)
       expect(p.bullets.length).toBeGreaterThanOrEqual(2)
       expect(p.stack.length).toBeGreaterThanOrEqual(2)
       expect(p.links.length).toBeGreaterThanOrEqual(1)
       expect(p.accent).toMatch(/^#/)
+      // immersive showcase fields
+      expect(p.form).toBeTruthy()
+      expect(p.cover).toMatch(/^\/projects\//)
+      expect(p.media.length).toBeGreaterThanOrEqual(1)
+      for (const m of p.media) {
+        expect(m.src).toMatch(/^\/projects\//)
+        expect(m.alt.length).toBeGreaterThan(3)
+        expect(m.w).toBeGreaterThan(0)
+        expect(m.h).toBeGreaterThan(0)
+      }
     }
   })
 

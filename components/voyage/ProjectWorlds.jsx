@@ -1,14 +1,24 @@
 'use client'
 
-import { useRef } from 'react'
+import { Suspense, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Float } from '@react-three/drei'
-import { posOf } from '@/lib/chapters'
+import { posOf, chapterPresence } from '@/lib/chapters'
 import { scrollState } from '@/lib/scroll'
 import { sound } from '@/lib/sound'
 import { profile } from '@/content/profile'
 import TerrainPlanet from './TerrainPlanet'
 import GasGiant from './GasGiant'
+import HoloScreen from './HoloScreen'
+
+/** Scroll-fly the page to a project's card (shared by the planet + its holo-screen). */
+function flyToProject(id) {
+  sound.blip(660)
+  const el = typeof document !== 'undefined' ? document.getElementById(`project-${id}`) : null
+  if (!el) return
+  if (scrollState.lenis) scrollState.lenis.scrollTo(el, { offset: -100, duration: 1.4 })
+  else el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+}
 
 function Ringed() {
   return (
@@ -74,22 +84,39 @@ function Wire({ accent }) {
   )
 }
 
-const FORMS = { sambhav: Ringed, samtechy: Smooth, flappy: LowPoly, portfolio: Wire }
+// Available planet shapes, keyed by a project's `form` field (decoupled from ids,
+// so adding a project is data-only). Unknown/missing forms fall back to Wire.
+const FORMS = { ringed: Ringed, gas: Smooth, lowpoly: LowPoly, wire: Wire }
 const OFFSETS = [
   [-10, 1, 4],
   [11, -2, -14],
   [-15, 5, -34], // kept wide of the camera path so the fly-by never clips the lens
   [10, 0, -50],
 ]
+// Each holo-screen sits on the inner flank of its planet — pulled toward the
+// camera path and lifted up so it stays in frame and reads as a floating screen
+// (the planets are deliberately kept wide, so the screens must sit inboard).
+const HOLO_OFFSETS = [
+  [-4, 3, 8],
+  [5, 2, -10],
+  [-8, 6, -30],
+  [4, 3, -46],
+]
 
-/** One clickable project body: hover to glow-grow, click to fly to its card. */
+/** One clickable project body: hover to glow-grow, click to fly to its card.
+ *  Scales in/out with the Worlds chapter so it never shows over other sections. */
 function WorldBody({ project, position, scale }) {
+  const outer = useRef()
   const inner = useRef()
   const hovered = useRef(false)
-  const Form = FORMS[project.id]
+  const Form = FORMS[project.form] ?? Wire
 
   useFrame((_, dt) => {
-    if (!inner.current) return
+    if (!inner.current || !outer.current) return
+    // Gate visibility to the Worlds chapter (no bleed into the timeline / skills).
+    const pres = chapterPresence(scrollState.progress, 'worlds')
+    outer.current.visible = pres > 0.005
+    outer.current.scale.setScalar(scale * pres)
     const target = hovered.current ? 1.18 : 1
     const k = 1 - Math.exp(-8 * Math.min(dt, 0.1))
     const s = inner.current.scale.x + (target - inner.current.scale.x) * k
@@ -98,16 +125,12 @@ function WorldBody({ project, position, scale }) {
 
   const fly = (e) => {
     e.stopPropagation()
-    sound.blip(660)
-    const el = document.getElementById(`project-${project.id}`)
-    if (!el) return
-    if (scrollState.lenis) scrollState.lenis.scrollTo(el, { offset: -100, duration: 1.4 })
-    else el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    flyToProject(project.id)
   }
 
   return (
     <Float speed={1.4} rotationIntensity={0.5} floatIntensity={0.9}>
-      <group position={position} scale={scale}>
+      <group ref={outer} position={position} scale={0.0001}>
         <group
           ref={inner}
           onClick={fly}
@@ -135,8 +158,25 @@ export default function ProjectWorlds({ tier = 2 }) {
     <group>
       <pointLight position={posOf('worlds', 0, 18, -20)} intensity={400} color="#ffffff" />
       {profile.projects.map((p, i) => {
-        const [ox, oy, oz] = OFFSETS[i]
-        return <WorldBody key={p.id} project={p} position={posOf('worlds', ox, oy, oz + dz)} scale={scale} />
+        const [ox, oy, oz] = OFFSETS[i % OFFSETS.length]
+        const [hx, hy, hz] = HOLO_OFFSETS[i % HOLO_OFFSETS.length]
+        return (
+          <group key={p.id}>
+            <WorldBody project={p} position={posOf('worlds', ox, oy, oz + dz)} scale={scale} />
+            {p.cover && (
+              <Suspense fallback={null}>
+                <HoloScreen
+                  src={p.cover}
+                  accent={p.accent}
+                  position={posOf('worlds', hx, hy, hz + dz)}
+                  scale={scale * (tier === 1 ? 0.72 : 0.95)}
+                  tier={tier}
+                  onClick={() => flyToProject(p.id)}
+                />
+              </Suspense>
+            )}
+          </group>
+        )
       })}
     </group>
   )

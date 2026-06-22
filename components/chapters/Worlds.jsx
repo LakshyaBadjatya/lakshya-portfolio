@@ -1,12 +1,16 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Chapter from './Chapter'
 import SectionLabel from '@/components/ui/SectionLabel'
 import TiltCard from '@/components/ui/TiltCard'
+import HoloShot from '@/components/ui/HoloShot'
+import Lightbox from '@/components/ui/Lightbox'
 import { profile } from '@/content/profile'
 
 export default function Worlds() {
+  const [active, setActive] = useState(null)
   return (
     <Chapter id="worlds">
       <SectionLabel pre="Chapter 03 · Worlds" title="Projects I've Shipped" />
@@ -25,6 +29,11 @@ export default function Worlds() {
               className="glass-deep group rounded-3xl p-7 transition-shadow duration-300 md:p-9"
               style={{ boxShadow: `0 24px 80px rgba(0,0,0,0.45), 0 0 0 1px ${p.accent}22` }}
             >
+            {p.media?.length > 0 && (
+              <div className="mb-6">
+                <HoloShot media={p.media} accent={p.accent} onOpen={() => setActive(p)} label={`Open ${p.name} screenshots`} />
+              </div>
+            )}
             <div className="mb-3 flex items-center gap-3">
               <span className="font-mono text-xs text-dim">0{i + 1}</span>
               <span
@@ -61,6 +70,7 @@ export default function Worlds() {
           </motion.article>
         ))}
       </div>
+      {active && <Lightbox project={active} onClose={() => setActive(null)} />}
     </Chapter>
   )
 }
