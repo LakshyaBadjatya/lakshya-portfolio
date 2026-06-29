@@ -20,8 +20,7 @@ export default function Worlds() {
             key={p.id}
             id={`project-${p.id}`}
             initial={{ opacity: 0, y: 70 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-15%' }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
             className={`w-full max-w-xl ${i % 2 ? 'self-end' : 'self-start'}`}
           >
@@ -44,6 +43,11 @@ export default function Worlds() {
               </span>
             </div>
             <h3 className="font-display text-3xl font-bold md:text-4xl">{p.name}</h3>
+            {p.role && (
+              <div className="mt-1 font-mono text-xs uppercase tracking-[0.2em]" style={{ color: p.accent }}>
+                Role: {p.role}
+              </div>
+            )}
             <p className="mt-3 leading-relaxed text-dim">{p.summary}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {p.stack.map((s) => (

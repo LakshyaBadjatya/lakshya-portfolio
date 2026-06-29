@@ -43,6 +43,15 @@ export default function Launch() {
         ))}
       </h1>
 
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.7, duration: 0.8 }}
+        className="mt-5 max-w-2xl font-mono text-sm text-cyan/90 md:text-base"
+      >
+        Chief Technology Officer at Sammed Technosol · Class 12 student applying to international CS programs (Fall 2027)
+      </motion.p>
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

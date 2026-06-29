@@ -8,7 +8,7 @@ Designed with a strong emphasis on **clean UI, responsiveness, accessibility,
 and smooth user experience**, this portfolio reflects both my current skills
 and my approach to learning and building real-world projects.
 
-🔗 **Live Website:** https://www.sukhma.in/
+🔗 **Live Website:** https://sukhma.in/
 
 ---
 
@@ -75,7 +75,7 @@ If you’d like to connect, collaborate, or provide feedback, feel free to reach
 
 - **Email:** lakshyabadjatya@gmail.com  
 - **Phone:** +91 8619690342  
-- **Website:** https://www.sukhma.in/
+- **Website:** https://sukhma.in/
 
 ---
 

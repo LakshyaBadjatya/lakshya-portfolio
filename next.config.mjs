@@ -2,6 +2,13 @@
 const nextConfig = {
   async redirects() {
     return [
+      // Canonical host: consolidate www → non-www so ranking signals don't split.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.sukhma.in' }],
+        destination: 'https://sukhma.in/:path*',
+        permanent: true,
+      },
       { source: '/aboutme', destination: '/about', permanent: true },
       { source: '/articles', destination: '/', permanent: true },
       { source: '/case-studies', destination: '/', permanent: true },

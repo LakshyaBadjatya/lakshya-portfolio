@@ -41,6 +41,9 @@ export default function AboutContent() {
           </Reveal>
           <Reveal delay={0.1}>
             <h1 className="gradient-text font-display text-5xl font-bold tracking-tight md:text-6xl">About Me</h1>
+            <h2 className="mt-3 font-display text-lg font-semibold text-cyan/90 md:text-xl">
+              Lakshya Badjatya — CTO at Sammed Technosol
+            </h2>
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-dim">{profile.about.lead}</p>
           </Reveal>
         </header>

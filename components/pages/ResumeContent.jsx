@@ -26,8 +26,8 @@ export default function ResumeContent() {
               {profile.name}
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-dim print:text-black">
-              Class 12 PCM student from Kota, India with a passion for building production-grade applications.
-              Aspiring to study Computer Science internationally, Fall 2027.
+              Chief Technology Officer at Sammed Technosol and a Class 12 PCM student from Kota, India building
+              production-grade applications. Applying to study Computer Science internationally, Fall 2027.
             </p>
             <div className="no-print mt-6 flex flex-wrap justify-center gap-3">
               <a
@@ -66,6 +66,37 @@ export default function ResumeContent() {
               {profile.education.extra}
             </InfoCard>
           </Reveal>
+        </section>
+
+        <section className="mb-14">
+          <SectionLabel pre="Experience" title="Experience" />
+          <div className="space-y-6">
+            {profile.experience.map((e) => (
+              <Reveal key={e.org}>
+                <article className="glass rounded-2xl p-7">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <h3 className="font-display text-2xl font-bold">
+                      {e.role} ·{' '}
+                      <a href={e.orgUrl} target="_blank" rel="noreferrer" className="text-cyan hover:underline">
+                        {e.org}
+                      </a>
+                    </h3>
+                    <span className="font-mono text-xs text-dim">
+                      {e.period} · {e.location}
+                    </span>
+                  </div>
+                  <ul className="mt-4 space-y-2">
+                    {e.bullets.map((b, j) => (
+                      <li key={j} className="flex gap-3 text-sm leading-relaxed text-star/85">
+                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-dim" />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </section>
 
         <section className="mb-14">

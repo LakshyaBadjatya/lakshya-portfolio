@@ -17,6 +17,18 @@ html {
   scroll-behavior: auto;
 }
 
+/* SEO / a11y safety net: if JS or the animation library never runs (search-engine
+   renderers, prefers-reduced-motion, no-JS), force any element parked at opacity:0
+   back to a fully visible, untransformed state so content is never hidden. */
+@media (prefers-reduced-motion: reduce) {
+  [style*="opacity:0"],
+  [style*="opacity: 0"] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
 body {
   background: var(--color-void);
   color: var(--color-star);

@@ -1,15 +1,15 @@
 export const profile = {
   name: 'Lakshya Badjatya',
   firstName: 'Lakshya',
-  statusBadge: 'Class 12 · Kota, India → CS Abroad, Fall 2027',
+  statusBadge: 'CTO @ Sammed Technosol · Class 12, Kota → CS Abroad, Fall 2027',
   roles: [
+    'CTO at Sammed Technosol',
     'Self-taught Developer',
     'Aspiring Computer Scientist',
-    'Flutter & Web Builder',
-    'Future Founder',
+    'CS Applicant · Fall 2027',
   ],
   tagline:
-    'A Class 12 PCM student from Kota, India who taught himself to build production software — 7+ apps shipped across web, mobile, and desktop.',
+    'Chief Technology Officer at Sammed Technosol and a Class 12 PCM student from Kota, India who taught himself to ship production software — 7+ apps across web, mobile, and desktop. Now applying to international Computer Science programs for Fall 2027.',
   email: 'lakshyabadjatya@gmail.com',
   phone: '+91 8619690342',
   location: 'Kota, Rajasthan, India',
@@ -23,7 +23,22 @@ export const profile = {
   ],
 
   objective:
-    'Self-driven student with a proven passion for software development, having independently built and shipped 7+ production applications across web, mobile, and desktop platforms. Seeking admission to an international CS undergraduate program (Fall 2027).',
+    'Chief Technology Officer at Sammed Technosol and a self-driven Class 12 student who has independently built and shipped 7+ production applications across web, mobile, and desktop. Seeking admission to an international CS undergraduate program (Fall 2027).',
+
+  experience: [
+    {
+      role: 'Chief Technology Officer',
+      org: 'Sammed Technosol',
+      orgUrl: 'https://www.samtechnos.com',
+      period: '2026 — Present',
+      location: 'Kota, India',
+      bullets: [
+        'Own the technology direction and architecture across the company’s product ecosystem and digital platforms.',
+        'Designed and built the company’s official corporate website on Next.js 16 / React 19 — a storytelling-first marketing site with a GSAP-driven product showcase and a 56-route, statically generated SEO content layer.',
+        'Established the front-end stack, the Core Web Vitals performance budget, and the structured-data / SEO system used across the company’s web properties.',
+      ],
+    },
+  ],
 
   education: {
     title: 'Senior Secondary (Class 12)',
@@ -76,10 +91,11 @@ export const profile = {
       id: 'sammed',
       name: 'Sammed Technosol',
       type: 'Corporate Website',
+      role: 'Chief Technology Officer',
       accent: '#ec4899',
       form: 'ringed',
       summary:
-        'The official corporate website for Sammed Technosol — a storytelling-first marketing site with an editorial light design, a GSAP-driven product showcase, and a 56-route SEO content layer. Built and maintained as CTO.',
+        'As CTO of Sammed Technosol, I designed and built the company’s official corporate website — a storytelling-first marketing site with an editorial light design, a GSAP-driven product showcase, and a 56-route SEO content layer.',
       stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind v4', 'GSAP', 'Framer Motion'],
       bullets: [
         "Designed and engineered the company's marketing site as a storytelling-first experience — a minimal homepage flowing into dedicated Story, Journey, Impact, Leadership, and Vision pages.",
@@ -93,7 +109,7 @@ export const profile = {
         { src: '/projects/sammed/ecosystem.jpeg', alt: 'The product ecosystem bar with the five Sammed products', w: 1440, h: 900 },
         { src: '/projects/sammed/products.jpeg', alt: 'Pinned horizontal product showcase with the products mega-menu open', w: 1440, h: 900 },
       ],
-      links: [{ label: 'Live Site', href: 'https://samtechnos.com' }],
+      links: [{ label: 'Live Site', href: 'https://www.samtechnos.com' }],
     },
     {
       id: 'puzzlecam',
@@ -146,7 +162,7 @@ export const profile = {
   ],
 
   about: {
-    lead: "I'm a Class 12 student from Kota, India building my journey toward studying Computer Science abroad — focused on learning by building and improving daily.",
+    lead: "I'm the CTO of Sammed Technosol and a Class 12 student from Kota, India building my path toward studying Computer Science abroad — leading product engineering by day, preparing for Fall 2027 admissions and improving by building every day.",
     cards: [
       { emoji: '🚀', title: 'My Journey', text: 'My interest in technology began during COVID when I got my first computer. Curiosity quickly turned into passion for understanding software, building websites, and learning how digital products work.' },
       { emoji: '💻', title: 'Projects & Skills', text: 'I enjoy turning ideas into working systems. One early project was building a Flappy Bird-style game where I learned programming logic and debugging. Currently improving through hands-on projects every day.' },

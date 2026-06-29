@@ -38,6 +38,11 @@ export default function ProjectsContent() {
                     {p.type}
                   </span>
                 </div>
+                {p.role && (
+                  <div className="mt-2 font-mono text-xs uppercase tracking-[0.2em]" style={{ color: p.accent }}>
+                    Role: {p.role}
+                  </div>
+                )}
                 {p.media?.length > 0 && (
                   <div className="mt-6">
                     <HoloShot media={p.media} accent={p.accent} onOpen={() => setActive(p)} label={`Open ${p.name} screenshots`} priority={i === 0} />
