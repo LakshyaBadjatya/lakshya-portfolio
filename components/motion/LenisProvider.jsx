@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import Lenis from 'lenis'
+import { isPlainLeftClick } from '@/lib/clicks'
 
 const NAV_OFFSET = -72
 
@@ -14,6 +15,7 @@ export default function LenisProvider({ children }) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
     const lenis = new Lenis({ lerp: 0.1, autoRaf: true })
     const onClick = (event) => {
+      if (!isPlainLeftClick(event)) return
       const link = event.target.closest?.('a[href^="#"]')
       if (!link) return
       const id = link.getAttribute('href').slice(1)
