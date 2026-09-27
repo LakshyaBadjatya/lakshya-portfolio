@@ -76,7 +76,9 @@ html.lenis body {
 .intro-line {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.06em;
+  /* Room for serif descenders (y, j) inside the mask, without changing the leading. */
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
 }
 .intro-line > span {
   display: block;
@@ -100,7 +102,8 @@ html.lenis body {
 .reveal-line {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.06em;
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
 }
 .reveal-line > span {
   display: block;

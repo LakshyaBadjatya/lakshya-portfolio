@@ -1,7 +1,24 @@
+import LenisProvider from '@/components/motion/LenisProvider'
+import Nav from '@/components/site/Nav'
+import Hero from '@/components/site/Hero'
+import Work from '@/components/site/Work'
+import Profile from '@/components/site/Profile'
+import CvSection from '@/components/site/CvSection'
+import Contact from '@/components/site/Contact'
+import Footer from '@/components/site/Footer'
+
 export default function Home() {
   return (
-    <main id="main">
-      <h1>Lakshya Badjatya</h1>
-    </main>
+    <LenisProvider>
+      <Nav />
+      <main id="main">
+        <Hero />
+        <Work />
+        <Profile />
+        <CvSection />
+        <Contact />
+      </main>
+      <Footer />
+    </LenisProvider>
   )
 }
