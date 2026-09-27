@@ -21,7 +21,7 @@ export default function CvSection() {
             <div key={e.role}>
               <p className="font-serif text-3xl leading-tight md:text-4xl">{e.role}</p>
               <p className="mt-2 text-lg">
-                <a href={e.orgHref} target="_blank" rel="noopener noreferrer" className="link">
+                <a href={e.orgHref} target="_blank" rel="noopener noreferrer" className="link-inline">
                   {e.org}
                 </a>
                 <span className="text-ink-2">
@@ -52,7 +52,7 @@ export default function CvSection() {
             {profile.certificates.map((c) => (
               <li key={c.title} className="grid gap-1 md:grid-cols-[1fr_auto] md:gap-8">
                 <div>
-                  <a href={c.href} target="_blank" rel="noopener noreferrer" className="link text-lg">
+                  <a href={c.href} target="_blank" rel="noopener noreferrer" className="link-inline text-lg">
                     {c.title} <span aria-hidden="true">↗</span>
                   </a>
                   <p className="text-ink-2">

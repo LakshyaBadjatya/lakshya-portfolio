@@ -11,7 +11,7 @@ export default function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-rule bg-paper print:hidden">
       <nav aria-label="Primary" className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-[5vw]">
-        <a href="#top" aria-label={`${profile.name}, back to top`} className="font-serif text-2xl leading-none">
+        <a href="#top" aria-label={`LB, ${profile.name}: back to top`} className="font-serif text-2xl leading-none">
           LB
         </a>
         <div className="flex items-center gap-5 text-sm sm:gap-8">

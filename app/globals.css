@@ -51,17 +51,39 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* Links: an underline that draws in on hover */
+/* Links: an underline that draws in on hover. It's a pseudo-element, not a background,
+   so contrast checkers don't mistake it for the text's backdrop. */
 .link {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 0% 1px;
-  transition: background-size 0.45s var(--ease-out-quart);
+  position: relative;
 }
-.link:hover,
-.link:focus-visible {
-  background-size: 100% 1px;
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.12em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease-out-quart);
+}
+.link:hover::after,
+.link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Links inside running text also keep a quiet permanent underline (WCAG 1.4.1). */
+.link-inline {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color 0.3s ease;
+}
+.link-inline:hover,
+.link-inline:focus-visible {
+  text-decoration-color: currentColor;
 }
 
 /* Hero intro: time-based, so crawlers and no-JS visitors see the finished state */
@@ -142,6 +164,9 @@ html[data-form="live"] .form-still {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .link::after {
+    transition: none;
+  }
   .intro-line > span,
   .intro-fade {
     animation: none;
