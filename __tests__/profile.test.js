@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
 import { profile } from '@/content/profile'
 
 const TOOL_NAMES =
@@ -62,5 +64,14 @@ describe('profile content', () => {
     for (const c of profile.certificates) expect(c.href).toMatch(/^(https:\/\/|\/certificates\/)/)
     expect(profile.skills.length).toBeGreaterThanOrEqual(5)
     expect(profile.skills.join(' ')).not.toMatch(/firebase|firestore|supabase|aws/i)
+  })
+
+  test('portrait width and height match the image file', () => {
+    const png = readFileSync(path.join(__dirname, '..', 'public', profile.portrait.src))
+    expect(png.toString('ascii', 1, 4)).toBe('PNG')
+    expect({ width: png.readUInt32BE(16), height: png.readUInt32BE(20) }).toEqual({
+      width: profile.portrait.width,
+      height: profile.portrait.height,
+    })
   })
 })

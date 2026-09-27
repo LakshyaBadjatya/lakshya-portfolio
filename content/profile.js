@@ -13,8 +13,8 @@ export const profile = {
   portrait: {
     src: '/img/portrait.png',
     alt: 'Portrait of Lakshya Badjatya in a navy suit',
-    width: 800,
-    height: 1200,
+    width: 408,
+    height: 612,
   },
 
   links: [
