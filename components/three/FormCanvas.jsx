@@ -12,7 +12,7 @@ function forgetLiveForm() {
 }
 
 export default function FormCanvas({ tier, onReady, pose }) {
-  const anchors = useAnchors(SECTIONS)
+  const layout = useAnchors(SECTIONS)
   return (
     <Canvas
       flat
@@ -38,7 +38,7 @@ export default function FormCanvas({ tier, onReady, pose }) {
         />
         <Lightformer form="ring" intensity={0.6} position={[3, -2, 3]} scale={2} color="#e8eeff" />
       </Environment>
-      <Form tier={tier} anchors={anchors} onFirstFrame={onReady} pose={pose} />
+      <Form tier={tier} layout={layout} onFirstFrame={onReady} pose={pose} />
     </Canvas>
   )
 }

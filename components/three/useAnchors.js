@@ -1,22 +1,24 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { anchorProgress } from '@/lib/keyframes'
+import { measureLayout } from '@/lib/layout'
 
-/** Where each section sits in the scroll range. Re-measured whenever layout changes. */
+/** Section anchors and the page's scroll range, re-measured when layout changes (never per frame). */
 export default function useAnchors(ids) {
-  const anchors = useRef({})
+  const layout = useRef({ anchors: {}, range: 0 })
   useEffect(() => {
     const measure = () => {
-      const range = document.documentElement.scrollHeight - window.innerHeight
-      const next = {}
+      const tops = {}
       for (const id of ids) {
         const el = document.getElementById(id)
-        if (!el) continue
-        const top = el.getBoundingClientRect().top + window.scrollY
-        next[id] = id === 'top' ? 0 : anchorProgress(top, window.innerHeight, range)
+        if (el) tops[id] = el.getBoundingClientRect().top + window.scrollY
       }
-      anchors.current = next
+      layout.current = measureLayout({
+        ids,
+        tops,
+        scrollHeight: document.documentElement.scrollHeight,
+        viewportHeight: window.innerHeight,
+      })
     }
     measure()
     const ro = new ResizeObserver(measure)
@@ -28,5 +30,5 @@ export default function useAnchors(ids) {
       window.removeEventListener('resize', measure)
     }
   }, [ids])
-  return anchors
+  return layout
 }

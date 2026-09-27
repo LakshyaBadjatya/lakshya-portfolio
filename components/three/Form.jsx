@@ -31,7 +31,7 @@ function makeShadowTexture() {
  * The sculpted object. Every frame it reads the scroll position, blends the section
  * keyframes and eases toward them. With `pose` (the /still capture) it holds that pose.
  */
-export default function Form({ tier, anchors, onFirstFrame, pose }) {
+export default function Form({ tier, layout, onFirstFrame, pose }) {
   const group = useRef()
   const mesh = useRef()
   const started = useRef(false)
@@ -57,10 +57,10 @@ export default function Form({ tier, anchors, onFirstFrame, pose }) {
     const g = group.current
     const m = mesh.current
     if (!g || !m) return
-    const range = document.documentElement.scrollHeight - window.innerHeight
+    const { anchors, range } = layout.current
     const progress = range > 0 ? window.scrollY / range : 0
     const aspect = state.size.width / state.size.height
-    const s = pose ?? blendKeyframes(progress, aspect < 1 ? FRAMES_NARROW : FRAMES_WIDE, anchors.current)
+    const s = pose ?? blendKeyframes(progress, aspect < 1 ? FRAMES_NARROW : FRAMES_WIDE, anchors)
     const halfH = Math.tan(THREE.MathUtils.degToRad(state.camera.fov / 2)) * state.camera.position.z
     const halfW = halfH * aspect
     // Snap on the first frame so the live form lines up with the still image it replaces.
