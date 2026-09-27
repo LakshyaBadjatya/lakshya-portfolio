@@ -53,24 +53,26 @@ html.lenis body {
 
 /* Links: an underline that draws in on hover. It's a pseudo-element, not a background,
    so contrast checkers don't mistake it for the text's backdrop. */
-.link {
-  position: relative;
-}
-.link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.12em;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.45s var(--ease-out-quart);
-}
-.link:hover::after,
-.link:focus-visible::after {
-  transform: scaleX(1);
+@layer components {
+  .link {
+    position: relative;
+  }
+  .link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.12em;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-out-quart);
+  }
+  .link:hover::after,
+  .link:focus-visible::after {
+    transform: scaleX(1);
+  }
 }
 
 /* Links inside running text also keep a quiet permanent underline (WCAG 1.4.1). */
