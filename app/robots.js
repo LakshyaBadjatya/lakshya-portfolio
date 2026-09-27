@@ -1,9 +1,9 @@
-const base = 'https://sukhma.in'
+import { profile } from '@/content/profile'
 
 export default function robots() {
   return {
-    rules: { userAgent: '*', allow: '/' },
-    sitemap: `${base}/sitemap.xml`,
-    host: base,
+    rules: { userAgent: '*', allow: '/', disallow: ['/og', '/still', '/cv/print'] },
+    sitemap: `${profile.url}/sitemap.xml`,
+    host: profile.url,
   }
 }
