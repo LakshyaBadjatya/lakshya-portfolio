@@ -1,4 +1,4 @@
-import { detectTier } from '@/lib/perf'
+import { detectTier, supportsWebGL } from '@/lib/perf'
 
 // All inputs injected so tests run in node without window/navigator.
 const base = { reducedMotion: false, webgl: true, nav: { hardwareConcurrency: 8 }, width: 1440 }
@@ -19,5 +19,28 @@ describe('detectTier', () => {
   })
   test('tier 2 on capable desktops', () => {
     expect(detectTier(base)).toBe(2)
+  })
+})
+
+describe('supportsWebGL', () => {
+  const fakeDoc = (gl) => ({ createElement: () => ({ getContext: (type) => (type === 'webgl2' ? gl : null) }) })
+
+  test('releases the probe context right after checking', () => {
+    const loseContext = jest.fn()
+    const gl = { getExtension: (name) => (name === 'WEBGL_lose_context' ? { loseContext } : null) }
+    expect(supportsWebGL(fakeDoc(gl))).toBe(true)
+    expect(loseContext).toHaveBeenCalledTimes(1)
+  })
+
+  test('reports no WebGL when no context can be created', () => {
+    expect(supportsWebGL(fakeDoc(null))).toBe(false)
+  })
+
+  test('works in browsers without the lose-context extension', () => {
+    expect(supportsWebGL(fakeDoc({ getExtension: () => null }))).toBe(true)
+  })
+
+  test('is false outside the browser', () => {
+    expect(supportsWebGL(undefined)).toBe(false)
   })
 })
