@@ -1,7 +1,16 @@
-import Image from 'next/image'
+import { getImageProps } from 'next/image'
 import { profile } from '@/content/profile'
 
+// The still only shows on wide landscape screens (md:landscape below), so only they
+// request it. Everywhere else the <img> keeps a transparent pixel and fetches nothing.
+const LANDSCAPE = '(min-width: 48rem) and (orientation: landscape)'
+const PIXEL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+
 export default function Hero() {
+  const {
+    props: { srcSet, sizes, ...still },
+  } = getImageProps({ src: '/form-still.png', alt: '', fill: true, sizes: '100vh', loading: 'eager', fetchPriority: 'high' })
+
   return (
     <section id="top" aria-label="Introduction" className="relative w-full overflow-hidden">
       <div
@@ -9,7 +18,10 @@ export default function Hero() {
         className="form-still pointer-events-none absolute top-0 hidden aspect-square h-screen md:landscape:block"
         style={{ left: 'calc(71vw - 50vh)' }}
       >
-        <Image src="/form-still.png" alt="" fill sizes="100vh" preload />
+        <picture>
+          <source media={LANDSCAPE} srcSet={srcSet} sizes={sizes} />
+          <img {...still} src={PIXEL} alt="" />
+        </picture>
       </div>
       <div className="relative mx-auto grid min-h-[100svh] max-w-[1440px] grid-cols-4 content-end gap-x-6 px-[5vw] pb-24 pt-28 md:grid-cols-12 md:landscape:content-center md:landscape:pb-16">
         <div className="col-span-4 md:col-span-7">
