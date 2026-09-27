@@ -1,7 +1,7 @@
 import nextCoreWebVitals from 'eslint-config-next/core-web-vitals'
 
 const config = [
-  { ignores: ['.next/**', 'node_modules/**', 'public/**', 'docs/**', '.remember/**', 'coverage/**'] },
+  { ignores: ['.next/**', 'node_modules/**', 'public/**', 'docs/**', '.remember/**', '.superpowers/**', 'coverage/**'] },
   ...nextCoreWebVitals,
   {
     // three.js objects are created once and mutated every frame by design, and
