@@ -1,31 +1,7 @@
-import VoyageCanvas from '@/components/voyage/VoyageCanvas'
-import BootOverlay from '@/components/ui/BootOverlay'
-import EasterEgg from '@/components/ui/EasterEgg'
-import Hud from '@/components/ui/Hud'
-import Launch from '@/components/chapters/Launch'
-import Pilot from '@/components/chapters/Pilot'
-import FlightPath from '@/components/chapters/FlightPath'
-import Worlds from '@/components/chapters/Worlds'
-import Systems from '@/components/chapters/Systems'
-import Destination from '@/components/chapters/Destination'
-import Transmission from '@/components/chapters/Transmission'
-
 export default function Home() {
   return (
-    <>
-      <BootOverlay />
-      <VoyageCanvas />
-      <Hud />
-      <EasterEgg />
-      <main className="relative z-10 pt-14">
-        <Launch />
-        <Pilot />
-        <FlightPath />
-        <Worlds />
-        <Systems />
-        <Destination />
-        <Transmission />
-      </main>
-    </>
+    <main id="main">
+      <h1>Lakshya Badjatya</h1>
+    </main>
   )
 }
