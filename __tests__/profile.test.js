@@ -1,64 +1,66 @@
 import { profile } from '@/content/profile'
 
-describe('profile content integrity (spec: Content Inventory)', () => {
-  test('identity', () => {
+const TOOL_NAMES =
+  /\b(flutter|firebase|firestore|react|next\.?js|dart|supabase|sqlite|node\.?js|typescript|javascript|tailwind|gsap|aws|vercel|riverpod|unity)\b/i
+const BANNED = /applicant|fall 2027|study(ing)? abroad|\bapk\b|puzzle cam|flappy|preparing for ielts/i
+
+const bioAndWork = () =>
+  JSON.stringify([profile.headline, profile.about, profile.quote, profile.work, profile.experience])
+
+describe('profile content', () => {
+  test('identity and contact', () => {
     expect(profile.name).toBe('Lakshya Badjatya')
+    expect(profile.nameLines.join(' ')).toBe(profile.name)
+    expect(profile.role).toBe('Co-Founder & CTO, Sammed Technosol')
     expect(profile.email).toBe('lakshyabadjatya@gmail.com')
-    expect(profile.phone).toBe('+91 8619690342')
-    expect(profile.location).toMatch(/Kota/)
-    expect(profile.roles.length).toBeGreaterThanOrEqual(3)
+    expect(profile.url).toBe('https://sukhma.in')
+    expect(profile.links.map((l) => l.label)).toEqual(['LinkedIn', 'GitHub', 'Medium', 'Dev.to'])
+    expect(profile.links[0].href).toBe('https://www.linkedin.com/in/lakshya-badjatya/')
   })
 
-  test('socials cover all four platforms', () => {
-    const hrefs = profile.socials.map((s) => s.href).join(' ')
-    for (const part of ['github.com/LakshyaBadjatya', 'linkedin.com', 'medium.com/@lakshyabadjatya', 'dev.to/lakshyabadjatya']) {
-      expect(hrefs).toContain(part)
+  test('exactly two projects, SamLab then Sammed Technosol', () => {
+    expect(profile.work.map((w) => w.id)).toEqual(['samlab', 'sammed'])
+    for (const w of profile.work) {
+      expect(w.tagline.length).toBeGreaterThan(10)
+      expect(w.lines.length).toBeGreaterThanOrEqual(3)
+      expect(w.lines.length).toBeLessThanOrEqual(4)
+      for (const link of w.links) expect(link.href).toMatch(/^https:\/\//)
     }
   })
 
-  test('timeline has the 5 canonical events ending at 2027', () => {
-    expect(profile.timeline).toHaveLength(5)
-    expect(profile.timeline[0].year).toBe('2020')
-    expect(profile.timeline.at(-1).year).toBe('2027')
+  test('copy stays short: a portfolio, not a descriptive site', () => {
+    expect(profile.about.split(/(?<=[.!?])\s+/).length).toBeLessThanOrEqual(3)
+    for (const w of profile.work) for (const line of w.lines) expect(line.length).toBeLessThanOrEqual(120)
   })
 
-  test('every project has full, well-formed data + immersive media', () => {
-    expect(Array.isArray(profile.projects)).toBe(true)
-    for (const p of profile.projects) {
-      expect(p.id).toBeTruthy()
-      expect(p.summary.length).toBeGreaterThan(20)
-      expect(p.bullets.length).toBeGreaterThanOrEqual(2)
-      expect(p.stack.length).toBeGreaterThanOrEqual(2)
-      expect(p.links.length).toBeGreaterThanOrEqual(1)
-      expect(p.accent).toMatch(/^#/)
-      // immersive showcase fields
-      expect(p.form).toBeTruthy()
-      expect(p.cover).toMatch(/^\/projects\//)
-      expect(p.media.length).toBeGreaterThanOrEqual(1)
-      for (const m of p.media) {
-        expect(m.src).toMatch(/^\/projects\//)
-        expect(m.alt.length).toBeGreaterThan(3)
-        expect(m.w).toBeGreaterThan(0)
-        expect(m.h).toBeGreaterThan(0)
-      }
-    }
+  test('no tool or backend names in work, experience or bio text', () => {
+    expect(bioAndWork()).not.toMatch(TOOL_NAMES)
   })
 
-  test('6 skill categories preserved', () => {
-    expect(profile.skills).toHaveLength(6)
-    const all = profile.skills.flatMap((s) => s.tags)
-    for (const tag of ['Dart', 'Flutter', 'React', 'Next.js', 'Firebase Auth', 'Unity Engine', 'Codemagic CI/CD']) {
-      expect(all).toContain(tag)
-    }
+  test('no application wording, downloads or old projects anywhere', () => {
+    expect(JSON.stringify(profile)).not.toMatch(BANNED)
   })
 
-  test('narrative pieces exist', () => {
-    expect(profile.objective).toMatch(/7\+/)
-    expect(profile.education.detail).toMatch(/PCM/)
-    expect(profile.vision).toMatch(/startup/i)
-    expect(profile.stats.length).toBe(4)
-    expect(profile.extras).toHaveLength(3)
-    expect(profile.story.panels).toHaveLength(3)
-    expect(profile.about.cards.length).toBeGreaterThanOrEqual(5)
+  test('IELTS appears only in the languages entry', () => {
+    const { languages, ...rest } = profile
+    expect(JSON.stringify(rest)).not.toMatch(/ielts/i)
+    expect(languages.find((l) => l.name === 'English').level).toBe('C1 (IELTS Academic 7.0)')
+  })
+
+  test('no private details: phone, address or birth date', () => {
+    expect(JSON.stringify(profile)).not.toMatch(/\+?\d[\d\s-]{9,}\d|\b\d{1,2}[/.-]\d{1,2}[/.-](19|20)\d{2}\b|\b\d{6}\b/)
+  })
+
+  test('CV sections are complete', () => {
+    expect(profile.experience[0]).toMatchObject({
+      role: 'Co-Founder & CTO',
+      org: 'Sammed Technosol',
+      period: 'June 2026 – present',
+    })
+    expect(profile.education[0].school).toBe('Disha Delphi Public School')
+    expect(profile.certificates).toHaveLength(3)
+    for (const c of profile.certificates) expect(c.href).toMatch(/^(https:\/\/|\/certificates\/)/)
+    expect(profile.skills.length).toBeGreaterThanOrEqual(5)
+    expect(profile.skills.join(' ')).not.toMatch(/firebase|firestore|supabase|aws/i)
   })
 })
