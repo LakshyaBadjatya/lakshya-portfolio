@@ -1,7 +1,8 @@
 import nextCoreWebVitals from 'eslint-config-next/core-web-vitals'
 
 const config = [
-  { ignores: ['.next/**', 'node_modules/**', 'public/**', 'docs/**', '.remember/**', '.superpowers/**', 'coverage/**'] },
+  // Dot-folders hold build output and local tooling, not source.
+  { ignores: ['.*/**', 'node_modules/**', 'public/**', 'coverage/**'] },
   ...nextCoreWebVitals,
   {
     // three.js objects are created once and mutated every frame by design, and

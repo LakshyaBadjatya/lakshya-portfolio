@@ -1,7 +1,6 @@
 // The one source of truth for the website, the CV PDF and the structured data.
-// Copy rules (docs/superpowers/specs/2026-09-27-editorial-portfolio-design.md):
-// short lines; no tool or backend names in work, experience or bio text; no
-// university-application wording; IELTS only inside `languages`.
+// Copy rules, enforced by __tests__/profile.test.js: short lines; no tool or
+// backend names in work, experience or bio text; IELTS only inside `languages`.
 export const profile = {
   name: 'Lakshya Badjatya',
   nameLines: ['Lakshya', 'Badjatya'],

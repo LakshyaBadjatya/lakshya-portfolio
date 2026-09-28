@@ -33,8 +33,6 @@ Thumbs.db
 # testing
 coverage/
 
-# Playwright MCP output
-.playwright-mcp/
 
 # misc
 *.log
