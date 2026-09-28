@@ -1,6 +1,5 @@
 import {
-  FRAMES_NARROW,
-  FRAMES_WIDE,
+  FRAMES,
   HOLD,
   anchorProgress,
   blendKeyframes,
@@ -9,7 +8,7 @@ import {
 
 const frames = [
   { id: 'a', state: { x: 0, y: 0, scale: 1, amp: 0, bands: 0, terrace: 0 } },
-  { id: 'b', state: { x: 1, y: 2, scale: 0, amp: 1, bands: 1, terrace: 1 } },
+  { id: 'b', state: { x: 1, y: 2, scale: 1, amp: 1, bands: 1, terrace: 1 } },
 ]
 const anchors = { a: 0, b: 1 }
 
@@ -37,6 +36,18 @@ describe('blendKeyframes', () => {
   test('orders by anchor position, not by table order', () => {
     expect(blendKeyframes(0, frames, { a: 1, b: 0 })).toEqual(frames[1].state)
   })
+  test('the position follows the visible ball: a hidden frame does not drag it across the page', () => {
+    const hidden = [{ id: 'a', state: { ...frames[0].state, scale: 0 } }, frames[1]]
+    const mid = blendKeyframes(HOLD + (1 - HOLD) / 2, hidden, anchors)
+    expect(mid).toMatchObject({ x: 1, y: 2, scale: expect.closeTo(0.5) })
+  })
+  test('with both balls hidden the position still eases evenly', () => {
+    const none = frames.map((f) => ({ ...f, state: { ...f.state, scale: 0 } }))
+    expect(blendKeyframes(HOLD + (1 - HOLD) / 2, none, anchors).x).toBeCloseTo(0.5)
+  })
+  test('with no frames placed at all the form is hidden', () => {
+    expect(blendKeyframes(0.5, [], {}).scale).toBe(0)
+  })
 })
 
 describe('anchorProgress', () => {
@@ -50,26 +61,23 @@ describe('anchorProgress', () => {
   })
 })
 
-describe('frame tables', () => {
-  test('wide and narrow tables cover the same sections in page order', () => {
-    expect(FRAMES_WIDE.map((f) => f.id)).toEqual(['top', 'samlab', 'sammed', 'profile', 'cv', 'contact'])
-    expect(FRAMES_NARROW.map((f) => f.id)).toEqual(FRAMES_WIDE.map((f) => f.id))
+describe('frame table', () => {
+  test('one frame per section, in page order', () => {
+    expect(FRAMES.map((f) => f.id)).toEqual(['top', 'samlab', 'sammed', 'profile', 'cv', 'contact'])
   })
-  test('positions stay on screen and shape weights stay within 0..1', () => {
-    for (const f of [...FRAMES_WIDE, ...FRAMES_NARROW]) {
-      expect(Math.abs(f.state.x)).toBeLessThanOrEqual(0.9)
-      expect(Math.abs(f.state.y)).toBeLessThanOrEqual(0.9)
-      expect(f.state.scale).toBeGreaterThan(0)
+  test('holding heights stay on screen and shape weights stay within 0..1', () => {
+    for (const f of FRAMES) {
+      expect(Math.abs(f.y)).toBeLessThanOrEqual(0.9)
       for (const k of ['bands', 'terrace']) {
-        expect(f.state[k]).toBeGreaterThanOrEqual(0)
-        expect(f.state[k]).toBeLessThanOrEqual(1)
+        expect(f[k]).toBeGreaterThanOrEqual(0)
+        expect(f[k]).toBeLessThanOrEqual(1)
       }
     }
   })
-  test('SamLab gets the banded shape and Sammed the terraced one', () => {
-    const wide = Object.fromEntries(FRAMES_WIDE.map((f) => [f.id, f.state]))
-    expect(wide.samlab.bands).toBe(1)
-    expect(wide.sammed.terrace).toBe(1)
+  test('SamLab gets the banded shape and Sammed the faceted one', () => {
+    const byId = Object.fromEntries(FRAMES.map((f) => [f.id, f]))
+    expect(byId.samlab.bands).toBe(1)
+    expect(byId.sammed.terrace).toBe(1)
   })
   test('smoothstep is clamped', () => {
     expect(smoothstep(-1)).toBe(0)

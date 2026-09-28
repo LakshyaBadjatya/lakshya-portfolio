@@ -8,9 +8,16 @@ export default function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="mx-auto flex min-h-[90vh] max-w-[1440px] flex-col justify-center px-[5vw] py-32"
+      className="relative mx-auto flex min-h-[90vh] max-w-[1440px] flex-col justify-center px-[5vw] py-32"
     >
       <SectionHeading id="contact-title" number="04" title="Contact" />
+      {/* The form's room: a square under the heading on small screens; on wide ones the
+          right-hand column beside the text. */}
+      <div
+        data-form-slot="contact"
+        aria-hidden="true"
+        className="mx-auto mt-12 aspect-square w-[min(56vw,18rem)] lg:absolute lg:inset-y-0 lg:right-[5vw] lg:mx-0 lg:mt-0 lg:aspect-auto lg:w-[34%] lg:[--form-fill:0.72]"
+      />
       <RevealLines
         as="p"
         lines={['Write to me.']}

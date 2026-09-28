@@ -1,10 +1,11 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { FRAMES_WIDE } from '@/lib/keyframes'
+import { FRAMES, HERO_FILL } from '@/lib/keyframes'
 
 const FormCanvas = dynamic(() => import('./FormCanvas'), { ssr: false })
-const POSE = { ...FRAMES_WIDE[0].state, x: 0, y: 0 }
+const { amp, bands, terrace } = FRAMES[0]
+const POSE = { x: 0, y: 0, scale: HERO_FILL, amp, bands, terrace }
 
 function markReady() {
   window.__formReady = true

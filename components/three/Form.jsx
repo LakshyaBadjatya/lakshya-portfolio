@@ -4,7 +4,8 @@ import { useEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { createFormMaterial } from './formMaterial'
-import { FRAMES_NARROW, FRAMES_WIDE, blendKeyframes } from '@/lib/keyframes'
+import { FRAMES, blendKeyframes } from '@/lib/keyframes'
+import { placeFrames } from '@/lib/placement'
 
 const damp = (rate, dt) => 1 - Math.exp(-rate * Math.min(dt, 0.1))
 
@@ -28,8 +29,9 @@ function makeShadowTexture() {
 }
 
 /**
- * The sculpted object. Every frame it reads the scroll position, blends the section
- * keyframes and eases toward them. With `pose` (the /still capture) it holds that pose.
+ * The sculpted object. Every frame it places each section's frame in that section's layout
+ * slot, blends them by scroll position and eases toward the result. With `pose` (the /still
+ * capture) it holds that pose.
  */
 export default function Form({ tier, layout, onFirstFrame, pose }) {
   const group = useRef()
@@ -57,17 +59,22 @@ export default function Form({ tier, layout, onFirstFrame, pose }) {
     const g = group.current
     const m = mesh.current
     if (!g || !m) return
-    const { anchors, range } = layout.current
-    const progress = range > 0 ? window.scrollY / range : 0
-    const aspect = state.size.width / state.size.height
-    const s = pose ?? blendKeyframes(progress, aspect < 1 ? FRAMES_NARROW : FRAMES_WIDE, anchors)
+    const { anchors, range, slots, navBottom, measured } = layout.current
+    if (!pose && !measured) return
+    const scrollY = window.scrollY
+    const progress = range > 0 ? scrollY / range : 0
+    const { width, height } = state.size
+    const aspect = width / height
+    const s = pose ?? blendKeyframes(progress, placeFrames(FRAMES, slots, { width, height, scrollY, navBottom }), anchors)
     const halfH = Math.tan(THREE.MathUtils.degToRad(state.camera.fov / 2)) * state.camera.position.z
     const halfW = halfH * aspect
     // Snap on the first frame so the live form lines up with the still image it replaces.
     const k = started.current ? damp(5, dt) : 1
     g.position.x += (s.x * halfW - g.position.x) * k
     g.position.y += (s.y * halfH - g.position.y) * k
-    g.scale.setScalar(g.scale.x + (s.scale * halfH - g.scale.x) * k)
+    // Never exactly zero (a singular matrix breaks the normals); hide it when that small.
+    g.scale.setScalar(Math.max(1e-4, g.scale.x + (s.scale * halfH - g.scale.x) * k))
+    g.visible = g.scale.x > 1e-3
     uniforms.uAmp.value += (s.amp - uniforms.uAmp.value) * k
     uniforms.uBands.value += (s.bands - uniforms.uBands.value) * k
     uniforms.uTerrace.value += (s.terrace - uniforms.uTerrace.value) * k

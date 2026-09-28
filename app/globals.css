@@ -146,6 +146,12 @@ html[data-form="live"] .form-still {
   opacity: 0;
 }
 
+/* Room reserved for the 3D form (lib/placement.js). Unlayered on purpose, so it beats the
+   display utilities on the slots: with no live form to put there, the room closes up. */
+html[data-form="off"] [data-form-slot] {
+  display: none;
+}
+
 /* One-page A4 CV (/cv/print) */
 .cv-page {
   width: 210mm;
@@ -177,6 +183,9 @@ html[data-form="live"] .form-still {
   .reveal-line > span {
     transition: none;
   }
+  [data-form-slot] {
+    display: none;
+  }
 }
 
 @media print {
@@ -189,7 +198,8 @@ html[data-form="live"] .form-still {
     opacity: 1 !important;
     transform: none !important;
   }
-  .form-still {
+  .form-still,
+  [data-form-slot] {
     display: none;
   }
   section[id],

@@ -22,4 +22,10 @@ describe('measureLayout', () => {
     expect(r.range).toBe(0)
     expect(r.anchors).toEqual({ top: 0, work: 0 })
   })
+
+  test('slots and the nav bar edge pass through, and the result is marked measured', () => {
+    const slots = { top: { x: 0, y: 0, w: 900, h: 900, fill: 0.55 } }
+    const r = measureLayout({ ...base, tops: { top: 0 }, slots, navBottom: 65 })
+    expect(r).toMatchObject({ slots, navBottom: 65, measured: true })
+  })
 })

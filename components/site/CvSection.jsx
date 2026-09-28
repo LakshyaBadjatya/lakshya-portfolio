@@ -14,7 +14,7 @@ function Row({ label, index, children }) {
 export default function CvSection() {
   return (
     <section id="cv" aria-labelledby="cv-title" className="mx-auto max-w-[1440px] px-[5vw] py-32">
-      <SectionHeading id="cv-title" number="03" title="CV" />
+      <SectionHeading id="cv-title" number="03" title="CV" slot="cv" />
       <div className="mt-12 border-b border-rule">
         <Row label="Experience" index={0}>
           {profile.experience.map((e) => (

@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Component, useSyncExternalStore } from 'react'
+import { Component, useEffect, useSyncExternalStore } from 'react'
 import { detectTier } from '@/lib/perf'
 
 const FormCanvas = dynamic(() => import('./FormCanvas'), { ssr: false, loading: () => null })
@@ -22,6 +22,11 @@ function markLive() {
   document.documentElement.setAttribute('data-form', 'live')
 }
 
+// No live form: the hero keeps its still, and the room reserved for the form closes up.
+function markOff() {
+  document.documentElement.setAttribute('data-form', 'off')
+}
+
 class FormBoundary extends Component {
   state = { failed: false }
 
@@ -30,7 +35,7 @@ class FormBoundary extends Component {
   }
 
   componentDidCatch() {
-    document.documentElement.removeAttribute('data-form')
+    markOff()
   }
 
   render() {
@@ -38,9 +43,12 @@ class FormBoundary extends Component {
   }
 }
 
-/** Fixed layer behind the page holding the live 3D form. At tier 0 nothing renders, so the hero keeps its still image. */
+/** Fixed layer behind the page holding the live 3D form. At tier 0 nothing renders and the page is marked data-form="off". */
 export default function FormStage() {
   const tier = useSyncExternalStore(subscribe, readTier, serverTier)
+  useEffect(() => {
+    if (tier === 0) markOff()
+  }, [tier])
   if (!tier) return null
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 print:hidden">

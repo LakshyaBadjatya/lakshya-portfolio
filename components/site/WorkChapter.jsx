@@ -7,8 +7,15 @@ export default function WorkChapter({ item, total, align }) {
     <article
       id={item.id}
       aria-labelledby={`${item.id}-title`}
-      className="grid min-h-[110vh] grid-cols-4 content-center gap-x-6 py-24 md:grid-cols-12"
+      className="relative grid min-h-[110vh] grid-cols-4 content-center gap-x-6 py-24 md:grid-cols-12"
     >
+      {/* The form's room: the free columns beside the text, full height so the form holds
+          still while the chapter scrolls past; on small screens a square above the chapter. */}
+      <div
+        data-form-slot={item.id}
+        aria-hidden="true"
+        className={`col-span-4 mx-auto mb-12 aspect-square w-[min(62vw,20rem)] md:absolute md:inset-0 md:col-span-5 md:mx-0 md:mb-0 md:aspect-auto md:w-auto md:[--form-fill:0.86] ${right ? 'md:col-start-1' : 'md:col-start-8'}`}
+      />
       <div className={`col-span-4 md:col-span-7 ${right ? 'md:col-start-6' : ''}`}>
         <Reveal className="mb-6 flex items-baseline gap-4 text-sm text-ink-2">
           <span className="tabular-nums">

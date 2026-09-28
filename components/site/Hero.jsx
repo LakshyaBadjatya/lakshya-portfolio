@@ -1,5 +1,6 @@
 import { getImageProps } from 'next/image'
 import { profile } from '@/content/profile'
+import { HERO_FILL } from '@/lib/keyframes'
 
 // The still only shows on wide landscape screens (md:landscape below), so only they
 // request it. Everywhere else the <img> keeps a transparent pixel and fetches nothing.
@@ -23,8 +24,18 @@ export default function Hero() {
           <img {...still} src={PIXEL} alt="" />
         </picture>
       </div>
-      <div className="relative mx-auto grid min-h-[100svh] max-w-[1440px] grid-cols-4 content-end gap-x-6 px-[5vw] pb-24 pt-28 md:grid-cols-12 md:landscape:content-center md:landscape:pb-16">
-        <div className="col-span-4 md:col-span-7">
+      {/* The form's room on wide screens: the still's column, reaching past the hero so the
+          form holds still while the name scrolls away. */}
+      <div
+        data-form-slot="top"
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 hidden h-[150vh] w-[100vh] md:landscape:block"
+        style={{ left: 'calc(71vw - 50vh)', '--form-fill': HERO_FILL }}
+      />
+      <div className="relative mx-auto grid min-h-[100svh] max-w-[1440px] grid-cols-4 grid-rows-[1fr_auto] content-end gap-x-6 px-[5vw] pb-24 pt-28 md:grid-cols-12 md:landscape:grid-rows-none md:landscape:content-center md:landscape:pb-16">
+        {/* Elsewhere: the free space above the name. */}
+        <div data-form-slot="top" aria-hidden="true" className="col-span-4 [--form-fill:0.72] md:col-span-12 md:landscape:hidden" />
+        <div className="col-span-4 row-start-2 md:col-span-7 md:landscape:row-start-auto">
           <p className="intro-fade mb-6 text-sm uppercase tracking-[0.18em] text-ink-2" style={{ '--i': 0 }}>
             {profile.location}
           </p>

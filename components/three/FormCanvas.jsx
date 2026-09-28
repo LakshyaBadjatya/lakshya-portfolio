@@ -3,16 +3,16 @@
 import { Canvas } from '@react-three/fiber'
 import { Environment, Lightformer } from '@react-three/drei'
 import Form from './Form'
-import useAnchors from './useAnchors'
+import useFormLayout from './useFormLayout'
 
 const SECTIONS = ['top', 'samlab', 'sammed', 'profile', 'cv', 'contact']
 
 function forgetLiveForm() {
-  document.documentElement.removeAttribute('data-form')
+  document.documentElement.setAttribute('data-form', 'off')
 }
 
 export default function FormCanvas({ tier, onReady, pose }) {
-  const layout = useAnchors(SECTIONS)
+  const layout = useFormLayout(SECTIONS)
   return (
     <Canvas
       flat
